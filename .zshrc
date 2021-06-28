@@ -1,4 +1,6 @@
 export ZSH="/home/jared/.oh-my-zsh"
+export EDITOR=nvim
+export TERM=xterm
 
 alias k="kubectl"
 
