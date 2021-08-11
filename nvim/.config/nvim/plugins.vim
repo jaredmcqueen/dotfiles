@@ -40,6 +40,8 @@ call plug#begin()
 		" " autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
     " "
   Plug 'sbdchd/neoformat'
+  Plug 'puremourning/vimspector'
+  Plug '/home/mpaulson/personal/contextprint.nvim'
 
 	" easy commenting of lines
 	Plug 'preservim/nerdcommenter'
@@ -56,6 +58,8 @@ call plug#begin()
   " Plug 'kyazdani42/nvim-web-devicons'
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-compe'
+  Plug 'glepnir/lspsaga.nvim'
+  Plug 'simrat39/symbols-outline.nvim'
   
   " cool buffer bars
   Plug 'kyazdani42/nvim-web-devicons'

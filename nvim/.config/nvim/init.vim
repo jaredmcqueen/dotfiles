@@ -14,11 +14,14 @@ set nowrap                       " do not wrap long lines
 set inccommand=split             " live substitution
 set completeopt=menuone,noselect " complete options
 set scrolloff=10
+set hidden                       " edit other buffers w/o saving
 " default updatetime 4000ms is not good for async update
 set updatetime=100
 
 " load plugins
 source $HOME/.config/nvim/plugins.vim
+" load LSP configs
+source $HOME/.config/nvim/lsp.vim
 
 " Important!!
 if has('termguicolors')
@@ -39,8 +42,8 @@ nnoremap <C-j> :wincmd j<CR>
 nnoremap <C-k> :wincmd k<CR>
 nnoremap <C-l> :wincmd l<CR>
 " resizing splits
-nnoremap <C-j> :vertical resize +5<CR>
-nnoremap <C-k> :vertical resize -5<CR>
+" nnoremap <C-j> :vertical resize +5<CR>
+" nnoremap <C-k> :vertical resize -5<CR>
 " remap leader c to close window - kind of slow though
 nnoremap <leader>c :wincmd c<CR>
 
