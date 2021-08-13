@@ -12,7 +12,7 @@ set hlsearch                     " highlight search results
 set ignorecase                   " case insensitive searching
 set nowrap                       " do not wrap long lines
 set inccommand=split             " live substitution
-set completeopt=menuone,noselect " complete options, from hrsh7th/nvim-compe
+" set completeopt=menuone,noselect " complete options, from hrsh7th/nvim-compe
 set scrolloff=10
 set hidden                       " edit other buffers w/o saving
 " default updatetime 4000ms is not good for async update
@@ -33,6 +33,14 @@ call plug#begin()
     au! VimEnter * nested RainbowParentheses
   augroup end
 
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+    " Find files using Telescope command-line sugar.
+    nnoremap <leader>ff <cmd>Telescope find_files<cr>
+    nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+    nnoremap <leader>fb <cmd>Telescope buffers<cr>
+    nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+    nnoremap <leader>fe <cmd>Telescope file_browser<cr>
 
   Plug 'junegunn/vim-easy-align'
     " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -64,14 +72,14 @@ call plug#begin()
     au FileType json noremap <buffer> <silent> <leader>g :call jsonpath#goto()<CR>
 
 
-  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-    nmap <Leader>py <Plug>(Prettier)
-    autocmd BufWritePre *.js,*.jsx,*.json,*.md,*.yaml,*.html PrettierAsync
+  " Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+    " nmap <Leader>py <Plug>(Prettier)
+    " autocmd BufWritePre *.js,*.jsx,*.json,*.md,*.yaml,*.html PrettierAsync
      " autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 	
   " python formatting using black
-  Plug 'psf/black', { 'branch': 'stable' }
-    autocmd BufWritePre *.py execute ':Black'
+  " Plug 'psf/black', { 'branch': 'stable' }
+    " autocmd BufWritePre *.py execute ':Black'
   
   " couldn't get this working very well
   " Plug 'puremourning/vimspector'
@@ -90,8 +98,8 @@ call plug#begin()
   Plug 'neovim/nvim-lspconfig'
 
   " completion thing
-  Plug 'hrsh7th/nvim-compe'
-  Plug 'windwp/nvim-autopairs'
+  " Plug 'hrsh7th/nvim-compe'
+  " Plug 'windwp/nvim-autopairs'
 
 
   Plug 'glepnir/lspsaga.nvim'
@@ -113,6 +121,41 @@ call plug#begin()
   Plug 'mhinz/vim-signify'
 
 call plug#end()
+
+
+
+lua << EOF
+require'lspconfig'.pyright.setup{}
+EOF
+
+" nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
+
+" nnoremap <leader>rr :lua require('theprimeagen.telescope').refactors()<CR>
+" vnoremap <leader>rr :lua require('theprimeagen.telescope').refactors()<CR>
+" nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
+" nnoremap <Leader>pf :lua require('telescope.builtin').find_files()<CR>
+
+" nnoremap <leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
+" nnoremap <leader>pb :lua require('telescope.builtin').buffers()<CR>
+" nnoremap <leader>vh :lua require('telescope.builtin').help_tags()<CR>
+" nnoremap <leader>vrc :lua require('theprimeagen.telescope').search_dotfiles()<CR>
+" nnoremap <leader>va :lua require('theprimeagen.telescope').anime_selector()<CR>
+" nnoremap <leader>vc :lua require('theprimeagen.telescope').chat_selector()<CR>
+" nnoremap <leader>gc :lua require('theprimeagen.telescope').git_branches()<CR>
+" nnoremap <leader>gw :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
+" nnoremap <leader>gm :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
+
+
+
+
+
+
+
+
+
+
+
+
 " load LSP configs
 " source $HOME/.config/nvim/lsp.vim
 " nnoremap <silent>gd :lua vim.lsp.buf.definition()<CR>
@@ -127,58 +170,58 @@ call plug#end()
 " nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 " nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 "
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-let g:compe = {}
-let g:compe.enabled = v:true
-let g:compe.autocomplete = v:true
-let g:compe.debug = v:false
-let g:compe.min_length = 1
-let g:compe.preselect = 'enable'
-let g:compe.throttle_time = 80
-let g:compe.source_timeout = 200
-let g:compe.resolve_timeout = 800
-let g:compe.incomplete_delay = 400
-let g:compe.max_abbr_width = 100
-let g:compe.max_kind_width = 100
-let g:compe.max_menu_width = 100
-let g:compe.documentation = v:true
+" nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+" nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" let g:compe = {}
+" let g:compe.enabled = v:true
+" let g:compe.autocomplete = v:true
+" let g:compe.debug = v:false
+" let g:compe.min_length = 1
+" let g:compe.preselect = 'enable'
+" let g:compe.throttle_time = 80
+" let g:compe.source_timeout = 200
+" let g:compe.resolve_timeout = 800
+" let g:compe.incomplete_delay = 400
+" let g:compe.max_abbr_width = 100
+" let g:compe.max_kind_width = 100
+" let g:compe.max_menu_width = 100
+" let g:compe.documentation = v:true
 
-let g:compe.source = {}
-let g:compe.source.path = v:true
-let g:compe.source.buffer = v:true
-let g:compe.source.calc = v:true
-let g:compe.source.nvim_lsp = v:true
-let g:compe.source.nvim_lua = v:true
-let g:compe.source.vsnip = v:true
-let g:compe.source.ultisnips = v:true
-let g:compe.source.luasnip = v:true
-let g:compe.source.emoji = v:true
+" let g:compe.source = {}
+" let g:compe.source.path = v:true
+" let g:compe.source.buffer = v:true
+" let g:compe.source.calc = v:true
+" let g:compe.source.nvim_lsp = v:true
+" let g:compe.source.nvim_lua = v:true
+" let g:compe.source.vsnip = v:true
+" let g:compe.source.ultisnips = v:true
+" let g:compe.source.luasnip = v:true
+" let g:compe.source.emoji = v:true
 
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+" inoremap <silent><expr> <C-Space> compe#complete()
+" inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+" inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+" inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+" inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 
 lua << EOF
-require'lspconfig'.pyright.setup{}
-require("nvim-autopairs.completion.compe").setup({
-  map_cr = true, --  map <CR> on insert mode
-  map_complete = true, -- it will auto insert `(` after select function or method item
-  auto_select = false,  -- auto select first item
-})
+-- require'lspconfig'.pyright.setup{}
+-- require("nvim-autopairs.completion.compe").setup({
+--   map_cr = true, --  map <CR> on insert mode
+--   map_complete = true, -- it will auto insert `(` after select function or method item
+--   auto_select = false,  -- auto select first item
+-- })
 EOF
 
 " Important!!
-if has('termguicolors')
+if has('mermguicolors')
   set termguicolors
 endif
 
@@ -191,8 +234,8 @@ colorscheme sonokai
 " remap jk to escape
 imap jk <Esc>
 " moving between splits
-nnoremap <C-h> :wincmd h<CR>
-nnoremap <C-j> :wincmd j<CR>
+" nnoremap <C-h> :wincmd h<CR>
+" nnoremap <C-j> :wincmd j<CR>
 nnoremap <C-k> :wincmd k<CR>
 nnoremap <C-l> :wincmd l<CR>
 " resizing splits
@@ -202,14 +245,14 @@ nnoremap <C-l> :wincmd l<CR>
 nnoremap <leader>c :wincmd c<CR>
 
 " LSP config (the mappings used in the default file don't quite work right)
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+" nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 " move between buffers
 nmap <TAB> :bnext<CR>
@@ -248,14 +291,16 @@ vmap X "_d
 " paste over selected text, sending highlighted text to black hole
 noremap <leader>p "_dP
  
+" clear highlights
 nmap <leader><leader> :set hlsearch! hlsearch?<cr>
 
-" jump to important files
 
 " cycle through popup menus with c-j and c-k
-inoremap <expr><C-j> pumvisible()? "\<C-n>" : "\<Down>"
-inoremap <expr><C-k> pumvisible()? "\<C-p>" : "\<Up>"
+" cnoremap <expr> <C-j> wildmenumode() ? "\<C-n>":"\<Down>"
+" cnoremap <expr> <C-k> wildmenumode() ? "\<C-p>":"\<Up>"
 
+" reload init - control+enter
+nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
 
 " let g:compe = {}
 " let g:compe.enabled = v:true
@@ -279,16 +324,3 @@ inoremap <expr><C-k> pumvisible()? "\<C-p>" : "\<Up>"
 " let g:compe.source.nvim_lua = v:true
 " let g:compe.source.vsnip = v:true
 " let g:compe.source.ultisnips = v:true
-
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-" source $HOME/.config/nvim/lsp.vim
-
