@@ -10,7 +10,7 @@ font:
   glyph_offset:
     x: 0
     y: 0
-  size: 12.0
+  size: 10.0
 
 window:
   padding:

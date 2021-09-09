@@ -6,21 +6,22 @@ font pango:monospace 8
 default_border pixel 2
 default_floating_border pixel 2
 
-for_window [class="^.*"] border pixel 1
-for_window [class="clock-applet"] floating enable
+for_window [class="^.*"] border pixel 0
 
 exec --no-startup-id xmodmap ~/.Xmodmap
 exec --no-startup-id xset r rate 250 30
 
+exec --no-startup-id alternating_layouts.py &
 exec feh --bg-fill --randomize ~/Photos/wallpapers/*
 
-exec killall redshift &&
-exec redshift &
+exec xsetroot -cursor_name left_ptr
 
+exec killall redshift
+exec redshift -P -O 3500
+ 
 exec killall picom &&
 exec_always --no-startup-id picom
 
-exec --no-startup-id i3altlayout
 
 bindsym $mod+w exec google-chrome-stable
 
