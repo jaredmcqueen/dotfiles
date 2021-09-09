@@ -5,6 +5,7 @@ export TERM=xterm
 alias k="kubectl"
 alias v="nvim"
 alias val="nvim ~/.config/alacritty/alacritty.conf"
+alias vi3="nvim ~/.config/i3/config"
 alias vnv="nvim ~/.config/nvim/init.vim"
 alias van="nvim ~/Projects/ansible-playbooks/"
 
