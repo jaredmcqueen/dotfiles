@@ -1,6 +1,6 @@
 export ZSH="/usr/share/oh-my-zsh"
 export EDITOR=nvim
-export TERM=xterm
+export fontsize=20
 
 alias k="kubectl"
 alias v="nvim"

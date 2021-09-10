@@ -1,5 +1,6 @@
 background_opacity: 1.0
-
+env:
+  TERM: xterm-256color
 font:
   normal:
     family: "UbuntuMono Nerd Font"
@@ -10,7 +11,7 @@ font:
   glyph_offset:
     x: 0
     y: 0
-  size: 10.0
+  size: 16
 
 window:
   padding:

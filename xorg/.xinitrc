@@ -1,2 +1,3 @@
-xrdb .Xresources
-xsetroot -cursor_name left_ptr
+#!/bin/sh
+xmodmap ~/.Xmodmap
+xrdb ~/.Xresources

@@ -18,6 +18,13 @@ set hidden                       " edit other buffers w/o saving
 " default updatetime 4000ms is not good for async update
 set updatetime=100
 
+
+if has("termguicolors")     " set true colors
+    set t_8f=\[[38;2;%lu;%lu;%lum
+    set termguicolors
+    set t_8b=\[[48;2;%lu;%lu;%lum
+endif
+
 " download vim-plug if missing
 " todo: check to see if this works
 if empty(glob("~/.local/share/nvim/site/autoload/plug.vim"))
@@ -221,9 +228,6 @@ lua << EOF
 EOF
 
 " Important!!
-if has('mermguicolors')
-  set termguicolors
-endif
 
 " The configuration options should be placed before `colorscheme sonokai`.
 let g:sonokai_style = 'atlantis'
@@ -324,3 +328,4 @@ nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
 " let g:compe.source.nvim_lua = v:true
 " let g:compe.source.vsnip = v:true
 " let g:compe.source.ultisnips = v:true
+"
