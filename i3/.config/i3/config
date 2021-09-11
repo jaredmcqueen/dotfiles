@@ -24,6 +24,7 @@ exec xsetroot -cursor_name left_ptr
 
 bindsym $mod+w exec google-chrome-stable
 bindsym $mod+Return exec alacritty
+bindsym $mod+s exec flameshot gui
 
 workspace 1 output HDMI-1 eDP-1
 workspace 2 output HDMI-1 eDP-1
@@ -74,7 +75,7 @@ bindsym $mod+v split h
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 # bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
