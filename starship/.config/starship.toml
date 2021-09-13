@@ -1,2 +1,29 @@
 # Inserts a blank line between shell prompts
 add_newline = true
+
+[time]
+disabled = false
+
+[hostname]
+ssh_only = false
+
+[git_metrics]
+disabled = false
+
+[git_commit]
+only_detached = false
+
+[kubernetes]
+disabled = true
+
+[[battery.display]]
+threshold = 100
+style = "green"
+
+[[battery.display]]
+threshold = 50
+style = "yellow"
+
+[[battery.display]]
+threshold = 50
+style = "red"
