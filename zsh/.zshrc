@@ -1,6 +1,10 @@
 export ZSH="/usr/share/oh-my-zsh"
 export EDITOR=nvim
 export fontsize=20
+export http_proxy=http://10.0.0.63:8118/
+export https_proxy=http://10.0.0.63:8118/
+export HTTP_PROXY=http://10.0.0.63:8118/
+export HTTPS_PROXY=http://10.0.0.63:8118/
 
 alias k="kubectl"
 alias v="nvim"
