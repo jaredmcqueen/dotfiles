@@ -2,14 +2,8 @@ export ZSH="/usr/share/oh-my-zsh"
 export npm_config_prefix="$HOME/.local"
 export EDITOR=nvim
 
-export https_proxy=http://10.0.0.63:8118/
-export http_proxy=http://10.0.0.63:8118/
-export HTTP_PROXY=http://10.0.0.63:8118/
-export HTTPS_PROXY=http://10.0.0.63:8118/
-
-export ZSH_TMUX_AUTOSTART=true
-export ZSH_TMUX_AUTOQUIT=false
-
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.config/scripts:$PATH
 
 alias k="kubectl"
 alias v="nvim"
@@ -23,7 +17,6 @@ plugins=(
   tmux
   fzf
   python
-  common-aliases
   command-not-found
   zsh-autosuggestions
 )
