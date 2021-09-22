@@ -1,0 +1,30 @@
+ lunarvim:
+ • lualine.nvim
+ • nlsp-settings.nvim
+ • null-ls.nvim
+ • cmp_luasnip
+ • nvim-cmp
+ • nvim-comment (not loaded)
+ • which-key.nvim
+ • toggleterm.nvim
+ • nvim-lspconfig
+ • nvim-lspinstall (not loaded)
+ • FixCursorHold.nvim
+ • telescope.nvim
+ • LuaSnip
+ • barbar.nvim
+ • project.nvim
+ • plenary.nvim
+ • popup.nvim
+ • cmp-buffer
+ • cmp-nvim-lsp
+ • cmp-nvim-lua
+ • cmp-path
+ • dashboard-nvim
+ • packer.nvim
+ • nvim-web-devicons
+ • friendly-snippets
+ • nvim-treesitter
+ • gitsigns.nvim (not loaded)
+ • nvim-tree.lua
+ • nvim-autopairs
