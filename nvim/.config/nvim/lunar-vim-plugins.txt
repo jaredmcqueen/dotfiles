@@ -1,10 +1,5 @@
  lunarvim:
- • lualine.nvim
- • nlsp-settings.nvim
- • null-ls.nvim
- • cmp_luasnip
- • nvim-cmp
- • nvim-comment (not loaded)
+ + lualine.nvim
  • which-key.nvim
  • toggleterm.nvim
  • nvim-lspconfig
