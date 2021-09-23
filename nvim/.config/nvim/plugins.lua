@@ -58,26 +58,14 @@ require("packer").startup(
         use {
             "lukas-reineke/indent-blankline.nvim",
             config = function()
-                require("indent-blankline").setup {
-
--- vim.g.indent_blankline_char = "┊"
--- vim.g.indent_blankline_filetype_exclude = {"help", "packer"}
--- vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}
--- vim.g.indent_blankline_char_highlight = "LineNr"
--- vim.g.indent_blankline_show_trailing_blankline_indent = false
-
-
-        }
+                require("indent_blankline").setup {
+                    show_current_context = true,
+                    show_end_of_line = true
+                }
             end
         }
 
-        -- better highlighting
-        -- https://github.com/nvim-treesitter/nvim-treesitter
-        use "nvim-treesitter/nvim-treesitter"
-        use "nvim-treesitter/nvim-treesitter-textobjects"
-
-        --gutter signs
-        --lewis6991/gitsigns.nvim
+        --https://github.com/lewis6991/gitsigns.nvim
         use {
             "lewis6991/gitsigns.nvim",
             requires = {
@@ -96,9 +84,12 @@ require("packer").startup(
             end
         }
 
+        -- https://github.com/nvim-treesitter/nvim-treesitter
+        use "nvim-treesitter/nvim-treesitter"
+
         -- better autocomplete stuff
         -- https://github.com/ray-x/lsp_signature.nvim
-        use "ray-x/lsp_signature.nvim"
+        -- use "ray-x/lsp_signature.nvim"
 
         -- better %
         -- https://github.com/andymass/vim-matchup
@@ -122,9 +113,12 @@ require("packer").startup(
         --
         -- way better auto-pairing
         -- https://github.com/windwp/nvim-autopairs
-        use "windwp/nvim-autopairs"
-        --"
-        --"
+        use {
+            "windwp/nvim-autopairs",
+            config = function()
+                require("nvim-autopairs").setup {}
+            end
+        }
         -- tree
         -- https://github.com/kyazdani42/nvim-tree.lua
         use "kyazdani42/nvim-tree.lua"
@@ -147,6 +141,12 @@ require("packer").startup(
     end
 )
 
+-- indent line options
+vim.opt.list = true
+vim.opt.listchars = {
+    space = ".",
+    eol = "↴"
+}
 --require('lspconfig').pyright.setup{}
 --require('lspconfig').terraformls.setup{}
 require("lsp_signature").setup {}
@@ -209,8 +209,6 @@ vim.api.nvim_exec(
 
 -- Y yank until the end of line  (note: this is now a default on master)
 vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
-
---Map blankline
 
 -- Telescope
 require("telescope").setup {
@@ -282,21 +280,12 @@ vim.api.nvim_set_keymap(
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
 require("nvim-treesitter.configs").setup {
-    ensure_installed = {
-        "bash",
-        "comment",
-        "dockerfile",
-        "go",
-        "json",
-        "lua",
-        "python",
-        "regex",
-        "toml",
-        "vim",
-        "yaml"
+    eautopairs = {
+        enable = true
     },
+    ensure_installed = "maintained",
     highlight = {
-        enable = true -- false will disable the whole extension
+        enable = true
     },
     incremental_selection = {
         enable = true,
@@ -309,47 +298,15 @@ require("nvim-treesitter.configs").setup {
     },
     indent = {
         enable = true
-    },
-    textobjects = {
-        select = {
-            enable = true,
-            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-            keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner"
-            }
-        },
-        move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-                ["]m"] = "@function.outer",
-                ["]]"] = "@class.outer"
-            },
-            goto_next_end = {
-                ["]M"] = "@function.outer",
-                ["]["] = "@class.outer"
-            },
-            goto_previous_start = {
-                ["[m"] = "@function.outer",
-                ["[["] = "@class.outer"
-            },
-            goto_previous_end = {
-                ["[M"] = "@function.outer",
-                ["[]"] = "@class.outer"
-            }
-        }
     }
 }
 
 -- LSP settings
 local nvim_lsp = require "lspconfig"
+
+-- on_attach runs for every language server installed
 local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
     local opts = {noremap = true, silent = true}
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -369,7 +326,7 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
@@ -395,7 +352,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 -- Enable the following language servers
-local servers = {"pyright"}
+local servers = {"pyright", "terraformls"}
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach,
@@ -412,39 +369,73 @@ vim.o.completeopt = "menuone,noselect"
 -- nvim-cmp setup
 local cmp = require "cmp"
 cmp.setup {
-    snippet = {},
     mapping = {
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
+        -- ["<C-p>"] = cmp.mapping.select_prev_item(),
+        -- ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-e>"] = cmp.mapping.close(),
-        ["<CR>"] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true
-        },
-        ["<Tab>"] = function(fallback)
-            if vim.fn.pumvisible() == 1 then
-                --      elseif luasnip.expand_or_jumpable() then
-                --        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
-            else
-                fallback()
-            end
-        end,
-        ["<S-Tab>"] = function(fallback)
-            if vim.fn.pumvisible() == 1 then
-                --      elseif luasnip.jumpable(-1) then
-                --        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
-            else
-                fallback()
-            end
-        end
+        ["<CR>"] = cmp.mapping.confirm {select = true},
+        ["<Tab>"] = cmp.mapping(
+            function(fallback)
+                if vim.fn.pumvisible() == 1 then
+                    feedkey("<C-n>", "n")
+                elseif has_words_before() then
+                    cmp.complete()
+                else
+                    fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+                end
+            end,
+            {"i", "s"}
+        ),
+        ["<S-Tab>"] = cmp.mapping(
+            function()
+                if vim.fn.pumvisible() == 1 then
+                    feedkey("<C-p>", "n")
+                end
+            end,
+            {"i", "s"}
+        )
+        -- ["<Tab>"] = function(fallback)
+        --     if vim.fn.pumvisible() == 1 then
+        --         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
+        --     else
+        --         fallback()
+        --     end
+        -- end,
+        -- ["<S-Tab>"] = function(fallback)
+        --     if vim.fn.pumvisible() == 1 then
+        --         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
+        --     else
+        --         fallback()
+        --     end
+        -- end
     },
     sources = {
         {name = "nvim_lsp"}
-        --   { name = 'luasnip' },
     }
 }
+
+-- using nvim-autopairs with treesitter
+-- https://github.com/windwp/nvim-autopairs#mapping-cr
+local npairs = require("nvim-autopairs")
+npairs.setup({check_ts = true})
+
+require("nvim-treesitter.configs").setup {}
+
+-- mapping <CR> in nvim-autopairs
+-- https://github.com/windwp/nvim-autopairs#mapping-cr
+require("nvim-autopairs.completion.cmp").setup(
+    {
+        map_cr = true, --  map <CR> on insert mode
+        map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
+        auto_select = true, -- automatically select the first item
+        insert = false, -- use insert confirm behavior instead of replace
+        map_char = {
+            -- modifies the function or method delimiter by filetypes
+            all = "(",
+            tex = "{"
+        }
+    }
+)
