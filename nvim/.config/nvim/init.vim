@@ -1,14 +1,5 @@
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
+let mapleader=' '              " set space to leader
 
-let mapleader = ' '              " set space to leader
 set number                       " show line numbers
 set relativenumber               " show relative line numbers
 " TODO: change based on file type
@@ -19,32 +10,32 @@ set tabstop=2                    " default tab is 2
 set shiftwidth=2                 " when indenting and dedenting
 set nowrap                       " do not wrap long lines
 set ignorecase                   " case insensitive searching
+set smartcase                    " case sensitive only when using capitals
 set hidden                       " edit other buffers w/o saving
 set expandtab                    " Converts tabs to spaces
 set cursorline                   " Enable highlighting of the current line
 set scrolloff=10
-set clipboard=unnamedplus        " Copy paste between vim and everything else
+set clipboard+=unnamedplus        " Copy paste between vim and everything else
+set noerrorbells
 set termguicolors                " gives more color to neovim
-"set signcolumn=auto:4
+set breakindent                  " wrapped code stays indented
+set undofile
+set undodir=~/.vim/undodir
 
-" from nvim-cmp
 " TODO: I think the noselect needs to be removed
 set completeopt=menu,menuone,noselect
 
 luafile $HOME/.config/nvim/plugins.lua
-"set inccommand=split             " live substitution
-"set hlsearch                     " highlight search results
-"set autoindent
-"set smartindent
-"set updatetime=100#
+set hlsearch                     " start with highlighting on
+set autoindent
+set smartindent
+set updatetime=100
 
-" let g:sonokai_style = 'atlantis'
-" colorscheme sonokai
+" set color scheme
+colorscheme onedark
 
 "easy align
-" Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
 nmap <C-_> :CommentToggle <CR>
@@ -68,10 +59,6 @@ imap <A-k> <Esc>:m .-2<CR>==gi
 vmap <A-j> :m '>+1<CR>gv=gv
 vmap <A-k> :m '<-2<CR>gv=gv
 
-" Allow continual indent/dedent in visual block
-vmap < <gv
-vmap > >gv
-
 " cut txt to black hole
 vmap X "_d
 
@@ -87,22 +74,11 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fe <cmd>Telescope file_browser<cr>
-" 
-"   Plug 'junegunn/vim-easy-align'
-"     " Start interactive EasyAlign in visual mode (e.g. vipga)
+
+"easyalign
 xmap ga <Plug>(EasyAlign)
-"     " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" LSP config (the mappings used in the default file don't quite work right)
-" nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-" nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 " edit ~/.config/nvim/init.vim
 map <leader>ev :e! ~/.config/nvim/init.vim<cr>
@@ -110,6 +86,7 @@ map <leader>ev :e! ~/.config/nvim/init.vim<cr>
 " clear highlights
 nmap <leader><leader> :set hlsearch! hlsearch?<cr>
 
-" cycle through popup menus with c-j and c-k
-" cnoremap <expr> <C-j> wildmenumode() ? "\<C-n>":"\<Down>"
-" cnoremap <expr> <C-k> wildmenumode() ? "\<C-p>":"\<Up>"
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
+augroup END

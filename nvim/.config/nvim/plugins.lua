@@ -60,7 +60,7 @@ require("packer").startup(
             config = function()
                 require("indent_blankline").setup {
                     show_current_context = true,
-                    show_end_of_line = true
+                    -- show_trailing_blankline_indent = false
                 }
             end
         }
@@ -87,9 +87,15 @@ require("packer").startup(
         -- https://github.com/nvim-treesitter/nvim-treesitter
         use "nvim-treesitter/nvim-treesitter"
 
+        use "ray-x/lsp_signature.nvim"
         -- better autocomplete stuff
         -- https://github.com/ray-x/lsp_signature.nvim
-        -- use "ray-x/lsp_signature.nvim"
+        -- use {
+        --     "ray-x/lsp_signature.nvim",
+        --     config = function()
+        --         require("lsp_signature").setup {}
+        --     end
+        -- }
 
         -- better %
         -- https://github.com/andymass/vim-matchup
@@ -141,75 +147,6 @@ require("packer").startup(
     end
 )
 
--- indent line options
-vim.opt.list = true
-vim.opt.listchars = {
-    space = ".",
-    eol = "↴"
-}
---require('lspconfig').pyright.setup{}
---require('lspconfig').terraformls.setup{}
-require("lsp_signature").setup {}
-
---Incremental live completion (note: this is now a default on master)
-vim.o.inccommand = "nosplit"
-
---Set highlight on search
-vim.o.hlsearch = false
-
---Make line numbers default
-vim.wo.number = true
-
---Do not save when switching buffers (note: this is now a default on master)
-vim.o.hidden = true
-
---Enable mouse mode
-vim.o.mouse = "a"
-
---Enable break indent
-vim.o.breakindent = true
-
---Save undo history
-vim.opt.undofile = true
-
---Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
---Decrease update time
-vim.o.updatetime = 250
-vim.wo.signcolumn = "yes"
-
---Set colorscheme (order is important here)
-vim.o.termguicolors = true
-vim.g.onedark_terminal_italics = 2
-vim.cmd [[colorscheme onedark]]
-
---Set statusbar
-
---Remap space as leader key
-vim.api.nvim_set_keymap("", "<Space>", "<Nop>", {noremap = true, silent = true})
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
---Remap for dealing with word wrap
-vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
-vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", {noremap = true, expr = true, silent = true})
-
--- Highlight on yank
-vim.api.nvim_exec(
-    [[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup end
-]],
-    false
-)
-
--- Y yank until the end of line  (note: this is now a default on master)
-vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
-
 -- Telescope
 require("telescope").setup {
     defaults = {
@@ -221,61 +158,6 @@ require("telescope").setup {
         }
     }
 }
---Add leader shortcuts
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader><space>",
-    [[<cmd>lua require('telescope.builtin').buffers()<CR>]],
-    {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>sf",
-    [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]],
-    {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>sb",
-    [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]],
-    {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>sh",
-    [[<cmd>lua require('telescope.builtin').help_tags()<CR>]],
-    {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>st",
-    [[<cmd>lua require('telescope.builtin').tags()<CR>]],
-    {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>sd",
-    [[<cmd>lua require('telescope.builtin').grep_string()<CR>]],
-    {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>sp",
-    [[<cmd>lua require('telescope.builtin').live_grep()<CR>]],
-    {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>so",
-    [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]],
-    {noremap = true, silent = true}
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>?",
-    [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]],
-    {noremap = true, silent = true}
-)
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
@@ -306,6 +188,7 @@ local nvim_lsp = require "lspconfig"
 
 -- on_attach runs for every language server installed
 local on_attach = function(_, bufnr)
+    require "lsp_signature".on_attach()
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     local opts = {noremap = true, silent = true}
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -326,7 +209,7 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "v", "<leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         "n",
@@ -360,12 +243,6 @@ for _, lsp in ipairs(servers) do
     }
 end
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noselect"
-
--- luasnip setup
--- local luasnip = require 'luasnip'
-
 -- nvim-cmp setup
 local cmp = require "cmp"
 cmp.setup {
@@ -373,18 +250,14 @@ cmp.setup {
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
-        -- ["<C-p>"] = cmp.mapping.select_prev_item(),
-        -- ["<C-n>"] = cmp.mapping.select_next_item(),
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-e>"] = cmp.mapping.close(),
         ["<CR>"] = cmp.mapping.confirm {select = true},
         ["<Tab>"] = cmp.mapping(
             function(fallback)
                 if vim.fn.pumvisible() == 1 then
                     feedkey("<C-n>", "n")
-                elseif has_words_before() then
-                    cmp.complete()
-                else
-                    fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
                 end
             end,
             {"i", "s"}
@@ -397,20 +270,6 @@ cmp.setup {
             end,
             {"i", "s"}
         )
-        -- ["<Tab>"] = function(fallback)
-        --     if vim.fn.pumvisible() == 1 then
-        --         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
-        --     else
-        --         fallback()
-        --     end
-        -- end,
-        -- ["<S-Tab>"] = function(fallback)
-        --     if vim.fn.pumvisible() == 1 then
-        --         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
-        --     else
-        --         fallback()
-        --     end
-        -- end
     },
     sources = {
         {name = "nvim_lsp"}
@@ -421,8 +280,6 @@ cmp.setup {
 -- https://github.com/windwp/nvim-autopairs#mapping-cr
 local npairs = require("nvim-autopairs")
 npairs.setup({check_ts = true})
-
-require("nvim-treesitter.configs").setup {}
 
 -- mapping <CR> in nvim-autopairs
 -- https://github.com/windwp/nvim-autopairs#mapping-cr
