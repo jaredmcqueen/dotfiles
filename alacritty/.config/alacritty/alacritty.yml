@@ -3,7 +3,8 @@ env:
   TERM: xterm-256color
 font:
   normal:
-    family: "UbuntuMono Nerd Font"
+    # family: "UbuntuMono Nerd Font"
+    family: "Hack Nerd Font"
 
   offset:
     x: 0

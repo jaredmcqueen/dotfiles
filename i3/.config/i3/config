@@ -83,8 +83,8 @@ set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
-set $ws6 "7"
-set $ws6 "8"
+set $ws7 "7"
+set $ws8 "8"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
