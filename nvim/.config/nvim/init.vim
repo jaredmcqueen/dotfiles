@@ -1,3 +1,4 @@
+":h lua-vim-options
 let mapleader=' '              " set space to leader
 
 set number                       " show line numbers
