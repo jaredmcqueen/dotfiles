@@ -1,0 +1,8 @@
+#!/bin/sh
+xmodmap -e "clear Lock"
+xmodmap -e "keycode 66 = Super_L"
+xsetroot -cursor_name left_ptr
+echo "Xcursor.size: 72 \
+  Xft.dpi: 192 \
+  rofi.dpi: 192" | xrdb
+xset r rate 250 30

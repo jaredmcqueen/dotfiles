@@ -1,31 +1,33 @@
 set $mod Mod4
 
-font pango:monospace 8
+font Hack Nerd Font 14
 
 #exec ~/.screenlayout/dual.sh
 default_border pixel 2
 default_floating_border pixel 2
 
+# disable system borders
 for_window [class="^.*"] border pixel 0
 
-
 exec sh $HOME/.config/scripts/monitors.sh
-exec --no-startup-id alternating_layouts.py &
+#exec --no-startup-id alternating_layouts.py &
 exec feh --bg-fill --randomize ~/Photos/wallpapers/*
 
-exec killall redshift
-exec redshift -P -O 3500
+exec killall -q redshift
+exec redshift -P -O 3000
  
-exec killall picom &&
+exec killall -q picom
 exec_always --no-startup-id picom
 
-exec xset r rate 250 30
-exec xsetroot -cursor_name left_ptr
-
+# my custom binds
 bindsym $mod+w exec google-chrome-stable
 bindsym $mod+Return exec alacritty
 bindsym $mod+s exec flameshot gui
+bindsym $mod+plus exec sh $HOME/.config/scripts/redshift.sh up
+bindsym $mod+minus exec sh $HOME/.config/scripts/redshift.sh down
+bindsym $mod+space exec --no-startup-id rofi -combi-modi window#drun#ssh -theme Monokai -font "Hack Nerd Font 20" -show combi -icon-theme "Papirus" -show-icons
 
+# my workspaces
 workspace 1 output HDMI-1 eDP-1
 workspace 2 output HDMI-1 eDP-1
 workspace 3 output HDMI-1 eDP-1
@@ -35,22 +37,19 @@ workspace 6 output DP-1 eDP-1
 workspace 7 output DP-1 eDP-1
 workspace 8 output DP-1 eDP-1
 
+# laptop controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set 'Master' 10%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set 'Master' 10%-
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl s 15+
 bindsym XF86MonBrightnessDown exec brightnessctl s 15-
-bindsym $mod+plus exec sh $HOME/.config/scripts/redshift.sh up
-bindsym $mod+minus exec sh $HOME/.config/scripts/redshift.sh down
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # kill focused window
 bindsym $mod+c kill
-
-bindsym $mod+space exec --no-startup-id rofi -show run
 
 # change focus
 bindsym $mod+h focus left
@@ -122,3 +121,10 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 bindsym $mod+r mode "resize"
+
+
+# execute some stuff
+exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/google-chrome-stable'
+exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/alacritty'
+exec --no-startup-id i3-msg 'workspace 5; exec /usr/bin/slack'
+exec --no-startup-id i3-msg 'workspace 5; exec /usr/bin/signal-desktop'
