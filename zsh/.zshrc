@@ -14,6 +14,8 @@ alias vi3="nvim ~/.config/i3/config"
 alias vnv="nvim ~/.config/nvim/init.vim"
 alias vpi="nvim ~/.config/picom/picom.conf"
 alias van="nvim ~/Projects/ansible-playbooks/"
+alias ds="source ~/.config/scripts/deepsky.sh"
+
 
 
 plugins=(
