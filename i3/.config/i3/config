@@ -1,25 +1,18 @@
 set $mod Mod4
-
 font Hack Nerd Font 14
 
-#exec ~/.screenlayout/dual.sh
 default_border pixel 2
 default_floating_border pixel 2
 
-# disable system borders
+exec --no-startup-id sh $HOME/.config/scripts/startup.sh
+
+#rules
 for_window [class="^.*"] border pixel 0
+for_window [class="Slack"] move container to workspace 5
+for_window [class="Signal"] move container to workspace 5
+for_window [class="Pavucontrol"] floating enable
 
-exec sh $HOME/.config/scripts/monitors.sh
-#exec --no-startup-id alternating_layouts.py &
-exec feh --bg-fill --randomize ~/Photos/wallpapers/*
-
-exec killall -q redshift
-exec redshift -P -O 3000
- 
-exec killall -q picom
-exec_always --no-startup-id picom
-
-# my custom binds
+# my bindings
 bindsym $mod+w exec google-chrome-stable
 bindsym $mod+Return exec alacritty
 bindsym $mod+s exec flameshot gui
@@ -123,8 +116,3 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
-# execute some stuff
-exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/google-chrome-stable'
-exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/alacritty'
-exec --no-startup-id i3-msg 'workspace 5; exec /usr/bin/slack'
-exec --no-startup-id i3-msg 'workspace 5; exec /usr/bin/signal-desktop'
