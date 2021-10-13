@@ -25,9 +25,8 @@ redshift -P -O 3000 &
 killall -q picom
 picom --inactive-dim=0.1 -b
 
-# last thing is to change cursor
-xsetroot -cursor_name left_ptr
-
+killall -q dunst
+dunst &
 
 i3-msg 'workspace 1; exec google-chrome-stable;' &
 sleep 1
