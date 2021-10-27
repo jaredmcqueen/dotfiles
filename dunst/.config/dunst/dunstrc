@@ -464,3 +464,10 @@
 #    set_stack_tag = "volume"
 #
 # vim: ft=cfg
+[slack]
+    appname = "slack"
+    format = ""
+
+[signal]
+    appname = "signal"
+    format = ""

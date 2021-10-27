@@ -1,22 +1,19 @@
 export ZSH="/usr/share/oh-my-zsh"
 export npm_config_prefix="$HOME/.local"
 export EDITOR=nvim
-
+export PATH="${PATH}:${HOME}/.krew/bin"
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.config/scripts:$PATH
 
+alias mc="mcli"
+alias pipes="pipes.sh -p 10 -t 1 -r 0 -R"
+alias matrix="unimatrix -n -s 96 -l o"
 alias k="kubectl"
 alias v="nvim"
-alias tn="tmux new-session -s tmux"
-alias ta="tmux attach"
-alias val="nvim ~/.config/alacritty/alacritty.yml"
+alias ta="sh ~/.config/scripts/tmux.sh"
 alias vi3="nvim ~/.config/i3/config"
-alias vnv="nvim ~/.config/nvim/init.vim"
-alias vpi="nvim ~/.config/picom/picom.conf"
-alias van="nvim ~/Projects/ansible-playbooks/"
+alias vnv="nvim ~/.config/nvim/init.lua"
 alias ds="source ~/.config/scripts/deepsky.sh"
-
-
 
 plugins=(
   fzf
@@ -31,7 +28,3 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 bindkey '^ ' autosuggest-accept
 eval "$(starship init zsh)"
-
-if [[ ! $(tmux list-sessions) ]]; then 
-  tmux new-session -s tmux
-fi

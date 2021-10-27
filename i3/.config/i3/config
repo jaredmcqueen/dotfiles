@@ -13,15 +13,16 @@ for_window [class="Signal"] move container to workspace 5
 for_window [class="Pavucontrol"] floating enable
 
 # my bindings
+bindsym $mod+space exec --no-startup-id rofi -combi-modi window#drun#ssh -theme Monokai -font "Hack Nerd Font 20" -show combi -icon-theme "Papirus" -show-icons
 bindsym $mod+w exec google-chrome-stable
 bindsym $mod+Return exec alacritty
 bindsym $mod+s exec flameshot gui
-bindsym $mod+plus exec sh $HOME/.config/scripts/redshift.sh up
-bindsym $mod+minus exec sh $HOME/.config/scripts/redshift.sh down
-bindsym $mod+space exec --no-startup-id rofi -combi-modi window#drun#ssh -theme Monokai -font "Hack Nerd Font 20" -show combi -icon-theme "Papirus" -show-icons
-bindsym $mod+bracketright exec sh $HOME/.config/scripts/volume.sh up
-bindsym $mod+bracketleft exec sh $HOME/.config/scripts/volume.sh down
-bindsym $mod+p exec sh $HOME/.config/scripts/volume.sh mute
+bindsym $mod+p exec peek
+bindsym $mod+bracketright exec sh $HOME/.config/scripts/redshift.sh up
+bindsym $mod+bracketleft exec sh $HOME/.config/scripts/redshift.sh down
+bindsym $mod+minus exec sh $HOME/.config/scripts/volume.sh down
+bindsym $mod+plus exec sh $HOME/.config/scripts/volume.sh up
+bindsym $mod+m exec sh $HOME/.config/scripts/volume.sh mute
 
 
 # my workspaces
