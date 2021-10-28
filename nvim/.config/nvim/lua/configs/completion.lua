@@ -105,5 +105,5 @@ for _, lsp in ipairs(servers) do
     }
 end
 
-require "lspconfig".terraformls.setup {}
-require "lspconfig".pyright.setup {}
+-- require "lspconfig".terraformls.setup {}
+-- require "lspconfig".pyright.setup {}
