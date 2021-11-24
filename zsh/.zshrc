@@ -15,7 +15,6 @@ alias ta="sh ~/.config/scripts/tmux.sh"
 alias vi3="nvim ~/.config/i3/config"
 alias vnv="nvim ~/.config/nvim/init.lua"
 alias ds="source ~/.config/scripts/deepsky.sh"
-alias mpm=""
 
 mercury="20:18:11:1a:04:94"
 apollo="20:18:11:1a:05:f2"
