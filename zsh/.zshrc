@@ -17,7 +17,7 @@ alias vnv="nvim ~/.config/nvim/init.lua"
 alias ds="source ~/.config/scripts/deepsky.sh"
 alias mpm=""
 
-mercury="0:18:11:1a:04:94"
+mercury="20:18:11:1a:04:94"
 apollo="20:18:11:1a:05:f2"
 gemini="20:19:12:1a:01:8c"
 alias wolm="wol $mercury"
