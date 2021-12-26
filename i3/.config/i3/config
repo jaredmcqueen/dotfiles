@@ -7,17 +7,19 @@ default_floating_border pixel 2
 exec --no-startup-id sh $HOME/.config/scripts/startup.sh
 
 #rules
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 2
 for_window [class="Slack"] move container to workspace 5
 for_window [class="Signal"] move container to workspace 5
 for_window [class="Pavucontrol"] floating enable
+hide_edge_borders smart
+
 
 # my bindings
 bindsym $mod+space exec --no-startup-id rofi -combi-modi window#drun#ssh -theme Monokai -font "Hack Nerd Font 20" -show combi -icon-theme "Papirus" -show-icons
 bindsym $mod+w exec google-chrome-stable
 bindsym $mod+Return exec alacritty
-bindsym $mod+s exec flameshot gui
-bindsym $mod+p exec peek
+bindsym $mod+s exec sleep 2 && flameshot gui
+bindsym $mod+p exec sleep 2 && peek
 bindsym $mod+bracketright exec sh $HOME/.config/scripts/redshift.sh up
 bindsym $mod+bracketleft exec sh $HOME/.config/scripts/redshift.sh down
 bindsym $mod+minus exec sh $HOME/.config/scripts/volume.sh down
@@ -121,3 +123,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
+# class                 border  backgr. text    indicator child_border
+client.focused          #282c34 #282c34 #ffffff #282c34  #e06c75 
+client.focused_inactive #282c34 #282c34 #ffffff #282c34  #282c34 

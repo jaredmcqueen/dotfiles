@@ -158,6 +158,8 @@ require("packer").startup(
         use "hrsh7th/cmp-nvim-lua" -- neovim-specific lua
         use "hrsh7th/cmp-nvim-lsp" -- enables auto imports
         use "saadparwaiz1/cmp_luasnip" -- snip completion
+
+        use "norcalli/nvim-colorizer.lua" -- snip completion
     end
 )
 
@@ -176,7 +178,8 @@ opt.cul = true -- cursor line
 
 -- Indentline
 opt.expandtab = true
-opt.shiftwidth = 2
+opt.shiftwidth = 4
+opt.tabstop = 4
 opt.smartindent = true
 
 -- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758
@@ -199,7 +202,6 @@ opt.shortmess:append "sI"
 opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true
-opt.tabstop = 8
 opt.termguicolors = true
 opt.timeoutlen = 400
 opt.undofile = true
@@ -214,6 +216,7 @@ opt.whichwrap:append "<>[]hl"
 -- disable some builtin vim plugins
 --
 vim.cmd [[colorscheme onedark]]
+require "colorizer".setup()
 
 local disabled_built_ins = {
     "2html_plugin",

@@ -23,7 +23,7 @@ alternating_layouts.py &
 redshift -P -O 3000 &
 
 killall -q picom
-picom --inactive-dim=0.1 -b
+picom -b
 
 killall -q dunst
 dunst &
