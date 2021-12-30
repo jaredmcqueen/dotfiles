@@ -28,12 +28,6 @@ picom -b
 killall -q dunst
 dunst &
 
-i3-msg 'workspace 1; exec google-chrome-stable;' &
-sleep 1
-i3-msg 'workspace 2; exec alacritty;' &
-sleep 1
-i3-msg 'workspace 5; exec slack;' &
-sleep 1
-i3-msg 'workspace 5; exec signal-desktop;' &
-sleep 1
+i3-msg 'exec slack;' &
+i3-msg 'exec signal-desktop;' &
 i3-msg 'workspace 1' &
