@@ -12,8 +12,8 @@ fi
 if [ "$HOSTNAME" = "archtop" ]; then
   echo "this is the laptop"
   sed -i -e '/Xcursor.size/ s/:.*/: 72/' $HOME/.Xresources
-  sed -i -e '/Xft.dpi/ s/:.*/: 96/' $HOME/.Xresources
-  sed -i -e '/rofi.dpi/ s/:.*/: 96/' $HOME/.Xresources
+  sed -i -e '/Xft.dpi/ s/:.*/: 120/' $HOME/.Xresources
+  sed -i -e '/rofi.dpi/ s/:.*/: 120/' $HOME/.Xresources
   xrdb -merge $HOME/.Xresources
 fi
 

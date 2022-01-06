@@ -164,6 +164,7 @@ require("packer").startup(
 )
 
 require("configs.completion")
+require("configs.go")
 
 -- Options
 local opt = vim.opt
