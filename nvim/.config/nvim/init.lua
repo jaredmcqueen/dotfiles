@@ -47,17 +47,6 @@ require("packer").startup(
             end
         }
 
-        -- https://github.com/hoob3rt/lualine.nvim
-        use {
-            "hoob3rt/lualine.nvim",
-            requires = {"kyazdani42/nvim-web-devicons", opt = true},
-            config = function()
-                require("lualine").setup {
-                    options = {theme = "onedark"}
-                }
-            end
-        }
-
         -- https://github.com/sbdchd/neoformat
         -- npm install -g lua-fmt
         -- npm install -g pyright
@@ -111,9 +100,6 @@ require("packer").startup(
             end
         }
 
-        -- https://github.com/kyazdani42/nvim-tree.lua
-        use "kyazdani42/nvim-tree.lua"
-
         -- https://github.com/nvim-telescope/telescope.nvim
         use {
             "nvim-telescope/telescope.nvim",
@@ -140,12 +126,46 @@ require("packer").startup(
         -- tpope/vim-surround
         use "tpope/vim-surround"
 
-        -- https://github.com/joshdick/onedark.vim
+        -- https://github.com/monsonjeremy/onedark.nvim
+        -- use {
+        --     "monsonjeremy/onedark.nvim",
+        --     config = function()
+        --         require "onedark".setup(
+        --             {
+        --                 functionStyle = "italic",
+        --                 sidebars = {"qf", "vista_kind", "terminal", "packer"},
+        --                 colors = {hint = "orange", error = "#ff0000"}
+        --             }
+        --         )
+        --     end
+        -- }
+        -- https://github.com/hoob3rt/lualine.nvim
+        use {
+            "hoob3rt/lualine.nvim",
+            requires = {"kyazdani42/nvim-web-devicons", opt = true},
+            config = function()
+                require("lualine").setup {
+                    options = {theme = "onedark"}
+                }
+            end
+        }
+
         use "joshdick/onedark.vim"
 
         use "L3MON4D3/LuaSnip"
-        use "saadparwaiz1/cmp_luasnip"
         use "rafamadriz/friendly-snippets"
+
+        use {
+            "kyazdani42/nvim-tree.lua",
+            requires = {
+                "kyazdani42/nvim-web-devicons" -- optional, for file icon
+            },
+            config = function()
+                require "nvim-tree".setup()
+            end
+        }
+
+        use "norcalli/nvim-colorizer.lua" -- snip completion
 
         -- lsp, see setup.completion for setup
         use "ray-x/lsp_signature.nvim"
@@ -156,9 +176,7 @@ require("packer").startup(
         use "hrsh7th/cmp-path" -- path completion
         use "hrsh7th/cmp-nvim-lua" -- neovim-specific lua
         use "hrsh7th/cmp-nvim-lsp" -- enables auto imports
-        use "saadparwaiz1/cmp_luasnip" -- snip completion
-
-        use "norcalli/nvim-colorizer.lua" -- snip completion
+        use "saadparwaiz1/cmp_luasnip" -- i'm not sure I need this
     end
 )
 
@@ -288,6 +306,9 @@ map("n", "<leader>fs", ":Telescope git_status <CR>")
 map("n", "<leader>fh", ":Telescope help_tags <CR>")
 map("n", "<leader>fw", ":Telescope live_grep <CR>")
 map("n", "<leader>fo", ":Telescope oldfiles <CR>")
+
+-- tree
+map("n", "<C-n>", ":NvimTreeToggle<CR>")
 
 -- TODO convert to lua mapping
 vim.cmd [[
