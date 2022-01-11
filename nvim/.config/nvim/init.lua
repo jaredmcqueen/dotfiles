@@ -1,3 +1,8 @@
+-- notes about my config:
+-- gitsigns.lua maps jumping to hunks
+-- completion.lua maps a bunch of stuff
+-- completion defines a python lsp server, i should move it
+
 -- mapping function
 local function map(mode, lhs, rhs, opts)
     local options = {noremap = true}
@@ -38,7 +43,7 @@ require("packer").startup(
         use {
             "terrortylor/nvim-comment",
             config = function()
-                require("nvim_comment").setup {}
+                require("nvim_comment").setup()
             end
         }
 
@@ -63,7 +68,7 @@ require("packer").startup(
             "akinsho/bufferline.nvim",
             requires = "kyazdani42/nvim-web-devicons",
             config = function()
-                require("bufferline").setup {}
+                require("bufferline").setup()
             end
         }
 
@@ -71,7 +76,7 @@ require("packer").startup(
         use {
             "lukas-reineke/indent-blankline.nvim",
             config = function()
-                require("configs.indent_blankline")
+                require("setup.indent_blankline")
             end
         }
 
@@ -80,7 +85,7 @@ require("packer").startup(
             "lewis6991/gitsigns.nvim",
             requires = "nvim-lua/plenary.nvim",
             config = function()
-                require("configs.gitsigns")
+                require("setup.gitsigns")
             end
         }
 
@@ -88,18 +93,7 @@ require("packer").startup(
         use {
             "nvim-treesitter/nvim-treesitter",
             config = function()
-                require("nvim-treesitter.configs").setup {
-                    ensure_installed = {
-                        "lua"
-                    },
-                    highlight = {
-                        enable = true,
-                        use_languagetree = true
-                    },
-                    matchup = {
-                        enable = true -- forces vim-matchup
-                    }
-                }
+                require("setup.treesitter")
             end
         }
 
@@ -113,7 +107,7 @@ require("packer").startup(
         use {
             "windwp/nvim-autopairs",
             config = function()
-                require("nvim-autopairs").setup {}
+                require("nvim-autopairs").setup()
             end
         }
 
@@ -125,7 +119,7 @@ require("packer").startup(
             "nvim-telescope/telescope.nvim",
             requires = {"nvim-lua/plenary.nvim"},
             config = function()
-                require("telescope").setup {}
+                require("telescope").setup()
             end
         }
 
@@ -149,7 +143,12 @@ require("packer").startup(
         -- https://github.com/joshdick/onedark.vim
         use "joshdick/onedark.vim"
 
-        -- lsp, see configs.completion for setup
+        use "L3MON4D3/LuaSnip"
+        use "saadparwaiz1/cmp_luasnip"
+        use "rafamadriz/friendly-snippets"
+
+        -- lsp, see setup.completion for setup
+        use "ray-x/lsp_signature.nvim"
         use "neovim/nvim-lspconfig" -- attatch, completions
         use "onsails/lspkind-nvim" -- better looking icons
         use "hrsh7th/nvim-cmp" -- completion
@@ -163,15 +162,15 @@ require("packer").startup(
     end
 )
 
-require("configs.completion")
-require("configs.go")
+require("setup.completion")
+require("languages.go")
 
 -- Options
 local opt = vim.opt
 local g = vim.g
 g.mapleader = " "
 
-opt.completeopt = "menuone,noselect"
+opt.completeopt = "menu,menuone,noselect"
 opt.title = true
 opt.clipboard = "unnamedplus"
 opt.cmdheight = 1
