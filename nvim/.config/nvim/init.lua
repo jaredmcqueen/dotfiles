@@ -330,5 +330,8 @@ vim.cmd [[
   augroup fmt
     autocmd!
     autocmd BufWritePre *.lua undojoin | Neoformat
+    autocmd BufWritePre *.go lua goimports(1000)
+    autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
+    autocmd BufNewFIle,BufRead *.gohtml set filetype=go
   augroup END
 ]]
