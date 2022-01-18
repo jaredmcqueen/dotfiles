@@ -261,6 +261,7 @@ for _, plugin in pairs(disabled_built_ins) do
     g["loaded_" .. plugin] = 1
 end
 
+map("n", ";", ":") -- remap semicolon to colon
 map("n", "<leader>so", ":source ~/.config/nvim/init.lua<CR>") -- source init.lua
 map("v", "p", '"_dP') -- in visual mode, paste to black hole
 map("n", "<TAB>", ":BufferLineCycleNext <CR>")
