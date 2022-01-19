@@ -16,7 +16,8 @@ hide_edge_borders smart
 
 # my bindings
 bindsym $mod+space exec --no-startup-id rofi -combi-modi window#drun#ssh -theme Monokai -font "Hack Nerd Font 20" -show combi -icon-theme "Papirus" -show-icons
-bindsym $mod+w exec google-chrome-stable
+bindsym $mod+w exec google-chrome-stable --profile-directory='Profile 1' --new-window
+bindsym $mod+q exec google-chrome-stable --profile-directory='Profile 2' --new-window
 bindsym $mod+Return exec alacritty
 bindsym $mod+s exec sleep 2 && flameshot gui
 bindsym $mod+p exec sleep 2 && peek
