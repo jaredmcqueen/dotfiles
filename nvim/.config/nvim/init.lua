@@ -126,31 +126,28 @@ require("packer").startup(
         -- tpope/vim-surround
         use "tpope/vim-surround"
 
-        -- https://github.com/monsonjeremy/onedark.nvim
-        -- use {
-        --     "monsonjeremy/onedark.nvim",
-        --     config = function()
-        --         require "onedark".setup(
-        --             {
-        --                 functionStyle = "italic",
-        --                 sidebars = {"qf", "vista_kind", "terminal", "packer"},
-        --                 colors = {hint = "orange", error = "#ff0000"}
-        --             }
-        --         )
-        --     end
-        -- }
         -- https://github.com/hoob3rt/lualine.nvim
         use {
             "hoob3rt/lualine.nvim",
             requires = {"kyazdani42/nvim-web-devicons", opt = true},
             config = function()
                 require("lualine").setup {
-                    options = {theme = "onedark"}
+                    -- options = {theme = "onedark"}
+                    options = {theme = "dracula-nvim"}
                 }
             end
         }
 
-        use "joshdick/onedark.vim"
+        use "Mofiqul/dracula.nvim"
+        -- show the '~' characters after the end of buffers
+        vim.g.dracula_show_end_of_buffer = true
+        -- use transparent background
+        vim.g.dracula_transparent_bg = true
+        -- set custom lualine background color
+        vim.g.dracula_lualine_bg_color = "#44475a"
+        -- set italic comment
+        vim.g.dracula_italic_comment = true
+        -- use "joshdick/onedark.vim"
 
         use "L3MON4D3/LuaSnip"
         use "rafamadriz/friendly-snippets"
@@ -233,7 +230,8 @@ opt.updatetime = 250
 opt.whichwrap:append "<>[]hl"
 -- disable some builtin vim plugins
 --
-vim.cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme dracula]]
+-- vim.cmd [[colorscheme onedark]]
 require "colorizer".setup()
 
 local disabled_built_ins = {

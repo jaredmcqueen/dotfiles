@@ -1,75 +1,82 @@
 background_opacity: 1.0
+colors:
+  bright:
+    black: "#6272a4"
+    blue: "#d6acff"
+    cyan: "#a4ffff"
+    green: "#69ff94"
+    magenta: "#ff92df"
+    red: "#ff6e6e"
+    white: "#ffffff"
+    yellow: "#ffffa5"
+  cursor:
+    cursor: CellForeground
+    text: CellBackground
+  hints:
+    end:
+      background: "#282a36"
+      foreground: "#f1fa8c"
+    start:
+      background: "#f1fa8c"
+      foreground: "#282a36"
+  line_indicator:
+    background: None
+    foreground: None
+  normal:
+    black: "#21222c"
+    blue: "#bd93f9"
+    cyan: "#8be9fd"
+    green: "#50fa7b"
+    magenta: "#ff79c6"
+    red: "#ff5555"
+    white: "#f8f8f2"
+    yellow: "#f1fa8c"
+  primary:
+    background: "#282a36"
+    bright_foreground: "#ffffff"
+    foreground: "#f8f8f2"
+  search:
+    bar:
+      background: "#282a36"
+      foreground: "#f8f8f2"
+    focused_match:
+      background: "#ffb86c"
+      foreground: "#44475a"
+    matches:
+      background: "#50fa7b"
+      foreground: "#44475a"
+  selection:
+    background: "#44475a"
+    text: CellForeground
+  vi_mode_cursor:
+    cursor: CellForeground
+    text: CellBackground
+draw_bold_text_with_bright_colors: true
 env:
   TERM: xterm-256color
 font:
-  normal:
-    # family: "UbuntuMono Nerd Font"
-    family: "Hack Nerd Font"
-
-  offset:
-    x: 0
-    y: 0
   glyph_offset:
     x: 0
     y: 0
+  normal:
+    family: Hack iCursive S12
+    # family: Source Code Pro iCursive S12
+    # family: Hack Nerd Font
+    # family: VictorMono Nerd Font
+    # family: VictorMono Nerd Font Mono
+    # family: GoMono Nerd Font
+  offset:
+    x: 0
+    y: 0
   size: 16
-
+live_config_reload: true
+scrolling:
+  history: 10000
+  multiplier: 10
+selection:
+  save_to_clipboard: true
+  semantic_escape_chars: ',│`|:"'' ()[]{}<>'
 window:
   padding:
     x: 0
     y: 0
-
-scrolling:
-  history: 10000
-  multiplier: 10
-
-draw_bold_text_with_bright_colors: true
-
-selection:
-  semantic_escape_chars: ',│`|:"'' ()[]{}<>'
-  save_to_clipboard: true
-
-live_config_reload: true
-
-# key_bindings:
-# - { key: V, mods: Control, action: Paste }
-# - { key: C, mods: Alt, action: Copy }
-# - { key: R, mods: Control, action: ResetFontSize }
-# - { key: Equals, mods: Alt, action: IncreaseFontSize }
-# - { key: Add, mods: Control, action: IncreaseFontSize }
-# - { key: Subtract, mods: Control, action: DecreaseFontSize }
-# - { key: Minus, mods: Control, action: DecreaseFontSize }
-# - { key: N, mods: Control, action: SpawnNewInstance }
-# Colors (One Dark)
-colors:
-  # Default colors
-  primary:
-    foreground: "0xabb2bf"
-    background: "0x282c34"
-
-  # Cursor colors
-  cursor:
-    text: "0x5c6370"
-    cursor: "0xabb2bf"
-
-  # Normal colors
-  normal:
-    black: "0x5c6370"
-    red: "0xe06c75"
-    green: "0x98c379"
-    yellow: "0xe5c07b"
-    blue: "0x61afef"
-    magenta: "0xc678dd"
-    cyan: "0x56b6c2"
-    white: "0xabb2bf"
-
-  # Bright colors
-  bright:
-    black: "0x4b5263"
-    red: "0xbe5046"
-    green: "0x98c379"
-    yellow: "0xd19a66"
-    blue: "0x61afef"
-    magenta: "0xc678dd"
-    cyan: "0x56b6c2"
-    white: "0x3e4452"
