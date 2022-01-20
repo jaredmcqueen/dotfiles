@@ -15,7 +15,8 @@ hide_edge_borders smart
 
 
 # my bindings
-bindsym $mod+space exec --no-startup-id rofi -combi-modi window#drun#ssh -theme Monokai -font "Hack Nerd Font 20" -show combi -icon-theme "Papirus" -show-icons
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+bindsym $mod+space exec --no-startup-id rofi -combi-modi window#drun#ssh -font "Hack Nerd Font 20" -show combi -icon-theme "Papirus" -show-icons
 bindsym $mod+w exec google-chrome-stable --profile-directory='Profile 1' --new-window
 bindsym $mod+q exec google-chrome-stable --profile-directory='Profile 2' --new-window
 bindsym $mod+Return exec alacritty
@@ -114,7 +115,13 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
-# class                 border  backgr. text    indicator child_border
-client.focused          #282c34 #282c34 #ffffff #282c34  #e06c75 
-client.focused_inactive #282c34 #282c34 #ffffff #282c34  #282c34 
+client.background       #F8F8F2
+
+
