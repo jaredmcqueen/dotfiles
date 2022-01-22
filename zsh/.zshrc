@@ -6,7 +6,7 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.config/scripts:$PATH
 export ANSIBLE_NOCOWS=1
 
-alias mc="mcli"
+alias cdp="cd ~/Projects"
 alias pipes="pipes.sh -p 10 -t 1 -r 0 -R"
 alias matrix="unimatrix -n -s 96 -l o"
 alias k="kubectl"
@@ -15,6 +15,7 @@ alias ta="sh ~/.config/scripts/tmux.sh"
 alias vi3="nvim ~/.config/i3/config"
 alias vnv="nvim ~/.config/nvim/init.lua"
 alias ds="source ~/.config/scripts/deepsky.sh"
+alias vzs="nvim ~/.zshrc"
 
 mercury="20:18:11:1a:04:94"
 apollo="20:18:11:1a:05:f2"
