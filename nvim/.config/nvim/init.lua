@@ -39,6 +39,12 @@ require("packer").startup(
 
         use "kyazdani42/nvim-web-devicons"
 
+        -- https://github.com/junegunn/limelight.vim
+        use "junegunn/limelight.vim"
+        vim.cmd [[
+" Color name (:help cterm-colors) or ANSI code
+        ]]
+
         -- https://github.com/terrortylor/nvim-comment
         use {
             "terrortylor/nvim-comment",
@@ -220,7 +226,7 @@ opt.splitright = true
 opt.termguicolors = true
 opt.timeoutlen = 400
 opt.undofile = true
-opt.scrolloff = 1000
+-- opt.scrolloff = 1000
 
 -- interval for writing swap file to disk, also used by gitsigns
 opt.updatetime = 250
@@ -309,6 +315,10 @@ map("n", "<leader>fo", ":Telescope oldfiles <CR>")
 -- tree
 map("n", "<C-n>", ":NvimTreeToggle<CR>")
 
+-- limelight
+map("n", "<C-l>", ":Limelight!!<CR>")
+map("v", "<C-l>", ":Limelight!!<CR>gv")
+
 -- TODO convert to lua mapping
 vim.cmd [[
 xmap ga <Plug>(EasyAlign)
@@ -327,9 +337,13 @@ nmap <leader><leader> :set hlsearch! hlsearch?<cr>
 vim.cmd [[
   augroup fmt
     autocmd!
-    autocmd BufWritePre *.lua undojoin | Neoformat
+    autocmd BufWritePre *.lua Neoformat
     autocmd BufWritePre *.go lua goimports(1000)
     autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
     autocmd BufNewFIle,BufRead *.gohtml set filetype=go
   augroup END
+
+    let g:limelight_conceal_ctermfg = 'gray'
+    let g:limelight_conceal_guifg = '#777777'
+    let g:limelight_paragraph_span = 0
 ]]
