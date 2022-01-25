@@ -54,5 +54,3 @@ function goimports(timeout_ms)
         vim.lsp.buf.execute_command(action)
     end
 end
-
---vim.lsp.set_log_level("debug")
