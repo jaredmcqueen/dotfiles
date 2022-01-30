@@ -17,8 +17,8 @@ hide_edge_borders smart
 # my bindings
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym $mod+space exec --no-startup-id rofi -combi-modi window#drun#ssh -font "Hack Nerd Font 20" -show combi -icon-theme "Papirus" -show-icons
-bindsym $mod+w exec google-chrome-stable --profile-directory='Profile 1' --new-window
-bindsym $mod+q exec google-chrome-stable --profile-directory='Profile 2' --new-window
+bindsym $mod+w exec brave --profile-directory='Default' --new-window
+bindsym $mod+q exec brave --profile-directory='Profile 1' --new-window
 bindsym $mod+Return exec alacritty
 bindsym $mod+s exec sleep 2 && flameshot gui
 bindsym $mod+p exec sleep 2 && peek
