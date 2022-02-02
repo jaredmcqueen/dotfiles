@@ -39,6 +39,14 @@ require("packer").startup(
 
         use "kyazdani42/nvim-web-devicons"
 
+        use {
+            "anuvyklack/pretty-fold.nvim",
+            config = function()
+                require("pretty-fold").setup {}
+                require("pretty-fold.preview").setup()
+            end
+        }
+
         -- https://github.com/junegunn/limelight.vim
         use "junegunn/limelight.vim"
         vim.cmd [[
@@ -63,7 +71,7 @@ require("packer").startup(
             "akinsho/bufferline.nvim",
             requires = "kyazdani42/nvim-web-devicons",
             config = function()
-                require("bufferline").setup()
+                require("setup.bufferline")
             end
         }
 
@@ -147,13 +155,21 @@ require("packer").startup(
         use "Mofiqul/dracula.nvim"
         -- show the '~' characters after the end of buffers
         vim.g.dracula_show_end_of_buffer = true
-        -- use transparent background
-        vim.g.dracula_transparent_bg = true
-        -- set custom lualine background color
-        vim.g.dracula_lualine_bg_color = "#44475a"
-        -- set italic comment
         vim.g.dracula_italic_comment = true
-        -- use "joshdick/onedark.vim"
+        --
+        vim.g.dracula_colors = {
+            menu = "#21222C",
+            selection = "#21222C"
+        }
+        -- show the '~' characters after the end of buffers
+        vim.g.dracula_show_end_of_buffer = true
+        -- use transparent background
+        -- vim.g.dracula_transparent_bg = true
+        -- set custom lualine background color
+        -- vim.g.dracula_lualine_bg_color = "#44475a"
+        -- set italic comment
+        -- vim.g.dracula_italic_comment = true
+        --
 
         use "L3MON4D3/LuaSnip"
         use "rafamadriz/friendly-snippets"
