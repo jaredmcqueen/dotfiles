@@ -1,5 +1,5 @@
 #!/bin/sh
-ip_address="10.0.6.5:8118"
+ip_address="10.0.6.4:8118"
 
 export http_proxy=$ip_address
 export https_proxy=$ip_address

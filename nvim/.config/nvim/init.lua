@@ -47,12 +47,6 @@ require("packer").startup(
             end
         }
 
-        -- https://github.com/junegunn/limelight.vim
-        use "junegunn/limelight.vim"
-        vim.cmd [[
-" Color name (:help cterm-colors) or ANSI code
-        ]]
-
         -- https://github.com/terrortylor/nvim-comment
         use {
             "terrortylor/nvim-comment",
@@ -145,10 +139,7 @@ require("packer").startup(
             "hoob3rt/lualine.nvim",
             requires = {"kyazdani42/nvim-web-devicons", opt = true},
             config = function()
-                require("lualine").setup {
-                    -- options = {theme = "onedark"}
-                    options = {theme = "dracula-nvim"}
-                }
+                require("lualine").setup {}
             end
         }
 
@@ -156,20 +147,6 @@ require("packer").startup(
         -- show the '~' characters after the end of buffers
         vim.g.dracula_show_end_of_buffer = true
         vim.g.dracula_italic_comment = true
-        --
-        vim.g.dracula_colors = {
-            menu = "#21222C",
-            selection = "#21222C"
-        }
-        -- show the '~' characters after the end of buffers
-        vim.g.dracula_show_end_of_buffer = true
-        -- use transparent background
-        -- vim.g.dracula_transparent_bg = true
-        -- set custom lualine background color
-        -- vim.g.dracula_lualine_bg_color = "#44475a"
-        -- set italic comment
-        -- vim.g.dracula_italic_comment = true
-        --
 
         use "L3MON4D3/LuaSnip"
         use "rafamadriz/friendly-snippets"
@@ -180,7 +157,7 @@ require("packer").startup(
                 "kyazdani42/nvim-web-devicons" -- optional, for file icon
             },
             config = function()
-                require "nvim-tree".setup()
+                require("setup.nvim-tree")
             end
         }
 
@@ -331,10 +308,6 @@ map("n", "<leader>fo", ":Telescope oldfiles <CR>")
 -- tree
 map("n", "<C-n>", ":NvimTreeToggle<CR>")
 
--- limelight
-map("n", "<C-l>", ":Limelight!!<CR>")
-map("v", "<C-l>", ":Limelight!!<CR>gv")
-
 -- TODO convert to lua mapping
 vim.cmd [[
 xmap ga <Plug>(EasyAlign)
@@ -358,8 +331,4 @@ vim.cmd [[
     autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
     autocmd BufNewFIle,BufRead *.gohtml set filetype=go
   augroup END
-
-    let g:limelight_conceal_ctermfg = 'gray'
-    let g:limelight_conceal_guifg = '#777777'
-    let g:limelight_paragraph_span = 0
 ]]

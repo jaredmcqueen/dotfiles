@@ -59,7 +59,7 @@ font-1 = Font Awesome:style=Regular:size=12;3
 ; Modules
 modules-left   = i3
 modules-center = weather time date
-modules-right  = audio battery network lock logout poweroff
+modules-right  = audio poweroff
 
 ; Cursor actions
 cursor-click  = pointer
