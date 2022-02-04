@@ -162,9 +162,15 @@ require("packer").startup(
         }
 
         use "norcalli/nvim-colorizer.lua" -- snip completion
+        use {"ray-x/go.nvim"}
+        use "mfussenegger/nvim-dap"
+        use "rcarriga/nvim-dap-ui"
+        use "theHamsta/nvim-dap-virtual-text"
 
         -- lsp, see setup.completion for setup
         use "ray-x/lsp_signature.nvim"
+        use {"ray-x/guihua.lua", run = "cd lua/fzy && make"}
+
         use "neovim/nvim-lspconfig" -- attatch, completions
         use "onsails/lspkind-nvim" -- better looking icons
         use "hrsh7th/nvim-cmp" -- completion
@@ -177,7 +183,23 @@ require("packer").startup(
 )
 
 require("setup.completion")
-require("languages.go")
+-- require("languages.go")
+require "go".setup(
+    {
+        goimport = "gopls", -- if set to 'gopls' will use golsp format
+        gofmt = "gopls", -- if set to gopls will use golsp format
+        max_line_len = 120,
+        tag_transform = false,
+        test_dir = "",
+        comment_placeholder = "   ",
+        lsp_cfg = true, -- false: use your own lspconfig
+        lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+        lsp_on_attach = true, -- use on_attach from go.nvim
+        dap_debug = true,
+        run_in_floaterm = true
+    }
+)
+local protocol = require "vim.lsp.protocol"
 
 -- Options
 local opt = vim.opt
@@ -323,12 +345,13 @@ nmap <leader><leader> :set hlsearch! hlsearch?<cr>
 -- toggle = "<C-n>"
 -- focus = "<leader>e"
 --autocmds
+-- Run gofmt + goimport on save
+vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
+
 vim.cmd [[
   augroup fmt
     autocmd!
     autocmd BufWritePre *.lua Neoformat
-    autocmd BufWritePre *.go lua goimports(1000)
-    autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
     autocmd BufNewFIle,BufRead *.gohtml set filetype=go
   augroup END
 ]]
