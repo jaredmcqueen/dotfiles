@@ -34,30 +34,18 @@ local use = require("packer").use
 require("packer").startup(
     function()
         use "nvim-lua/plenary.nvim"
-
         use "wbthomason/packer.nvim"
-
         use "kyazdani42/nvim-web-devicons"
-
+        use {"rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins"}
+        -- https://github.com/numToStr/Comment.nvim
         use {
-            "anuvyklack/pretty-fold.nvim",
+            "numToStr/Comment.nvim",
             config = function()
-                require("pretty-fold").setup {}
-                require("pretty-fold.preview").setup()
-            end
-        }
-
-        -- https://github.com/terrortylor/nvim-comment
-        use {
-            "terrortylor/nvim-comment",
-            config = function()
-                require("nvim_comment").setup()
+                require("Comment").setup()
             end
         }
 
         -- https://github.com/sbdchd/neoformat
-        -- npm install -g lua-fmt
-        -- npm install -g pyright
         use "sbdchd/neoformat"
 
         -- https://github.com/akinsho/bufferline.nvim
@@ -65,7 +53,7 @@ require("packer").startup(
             "akinsho/bufferline.nvim",
             requires = "kyazdani42/nvim-web-devicons",
             config = function()
-                require("setup.bufferline")
+                require("plugins.bufferline")
             end
         }
 
@@ -73,7 +61,7 @@ require("packer").startup(
         use {
             "lukas-reineke/indent-blankline.nvim",
             config = function()
-                require("setup.indent_blankline")
+                require "plugins.indent-blankline"
             end
         }
 
@@ -82,7 +70,7 @@ require("packer").startup(
             "lewis6991/gitsigns.nvim",
             requires = "nvim-lua/plenary.nvim",
             config = function()
-                require("setup.gitsigns")
+                require("plugins.gitsigns")
             end
         }
 
@@ -90,12 +78,9 @@ require("packer").startup(
         use {
             "nvim-treesitter/nvim-treesitter",
             config = function()
-                require("setup.treesitter")
+                require("plugins.treesitter")
             end
         }
-
-        -- https://github.com/andymass/vim-matchup
-        use "andymass/vim-matchup"
 
         -- https://github.com/jdhao/better-escape.vim
         use "jdhao/better-escape.vim"
@@ -104,7 +89,7 @@ require("packer").startup(
         use {
             "windwp/nvim-autopairs",
             config = function()
-                require("nvim-autopairs").setup()
+                require "plugins.nvim-autopairs"
             end
         }
 
@@ -120,7 +105,7 @@ require("packer").startup(
         -- git plugin
         -- https://github.com/tpope/vim-fugitive
         use "tpope/vim-fugitive"
-        use "tpope/vim-rhubarb" -- Fugitive-companion to interact with github
+        -- use "tpope/vim-rhubarb" -- Fugitive-companion to interact with github
 
         -- https://github.com/junegunn/vim-easy-align/blob/master/EXAMPLES.md
         use "junegunn/vim-easy-align"
@@ -129,7 +114,7 @@ require("packer").startup(
         use "junegunn/vim-peekaboo"
 
         -- https://github.com/tpope/vim-speeddating
-        use "tpope/vim-speeddating"
+        -- use "tpope/vim-speeddating"
 
         -- tpope/vim-surround
         use "tpope/vim-surround"
@@ -139,14 +124,27 @@ require("packer").startup(
             "hoob3rt/lualine.nvim",
             requires = {"kyazdani42/nvim-web-devicons", opt = true},
             config = function()
-                require("lualine").setup {}
+                require("lualine").setup {
+                    options = {
+                        them = "tokyonight"
+                    }
+                }
             end
         }
 
-        use "Mofiqul/dracula.nvim"
-        -- show the '~' characters after the end of buffers
-        vim.g.dracula_show_end_of_buffer = true
-        vim.g.dracula_italic_comment = true
+        use {
+            "folke/tokyonight.nvim",
+            config = function()
+                vim.g.tokyonight_style = "night"
+                vim.g.tokyonight_italic_functions = true
+                vim.g.tokyonight_sidebars = {"packer"}
+                -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+                vim.g.tokyonight_colors = {hint = "orange", error = "#ff0000"}
+
+                -- Load the colorscheme
+                vim.cmd [[colorscheme tokyonight]]
+            end
+        }
 
         use "L3MON4D3/LuaSnip"
         use "rafamadriz/friendly-snippets"
@@ -157,49 +155,45 @@ require("packer").startup(
                 "kyazdani42/nvim-web-devicons" -- optional, for file icon
             },
             config = function()
-                require("setup.nvim-tree")
+                require("plugins.nvim-tree")
             end
         }
 
         use "norcalli/nvim-colorizer.lua" -- snip completion
-        use {"ray-x/go.nvim"}
-        use "mfussenegger/nvim-dap"
-        use "rcarriga/nvim-dap-ui"
-        use "theHamsta/nvim-dap-virtual-text"
+        -- use {"ray-x/go.nvim"}
 
         -- lsp, see setup.completion for setup
-        use "ray-x/lsp_signature.nvim"
-        use {"ray-x/guihua.lua", run = "cd lua/fzy && make"}
+        use {
+            -- completions
+            "hrsh7th/cmp-buffer", -- buffer completion
+            "hrsh7th/cmp-nvim-lsp", -- enables auto imports
+            "hrsh7th/cmp-nvim-lua", -- neovim-specific lua
+            "hrsh7th/cmp-path", -- path completion
+            "saadparwaiz1/cmp_luasnip", -- i'm not sure I need this
+            "hrsh7th/nvim-cmp", -- completion
+            "neovim/nvim-lspconfig", -- attatch, completions
+            "onsails/lspkind-nvim", -- better looking icons
+            "ray-x/lsp_signature.nvim",
+            "williamboman/nvim-lsp-installer"
+        }
 
-        use "neovim/nvim-lspconfig" -- attatch, completions
-        use "onsails/lspkind-nvim" -- better looking icons
-        use "hrsh7th/nvim-cmp" -- completion
-        use "hrsh7th/cmp-buffer" -- buffer completion
-        use "hrsh7th/cmp-path" -- path completion
-        use "hrsh7th/cmp-nvim-lua" -- neovim-specific lua
-        use "hrsh7th/cmp-nvim-lsp" -- enables auto imports
-        use "saadparwaiz1/cmp_luasnip" -- i'm not sure I need this
+        use {
+            "b0o/schemastore.nvim",
+            config = function()
+                require("lspconfig").jsonls.setup {
+                    settings = {
+                        json = {
+                            schemas = require("schemastore").json.schemas()
+                        }
+                    }
+                }
+            end
+        }
     end
 )
 
-require("setup.completion")
--- require("languages.go")
-require "go".setup(
-    {
-        goimport = "gopls", -- if set to 'gopls' will use golsp format
-        gofmt = "gopls", -- if set to gopls will use golsp format
-        max_line_len = 120,
-        tag_transform = false,
-        test_dir = "",
-        comment_placeholder = "   ",
-        lsp_cfg = true, -- false: use your own lspconfig
-        lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-        lsp_on_attach = true, -- use on_attach from go.nvim
-        dap_debug = true,
-        run_in_floaterm = true
-    }
-)
-local protocol = require "vim.lsp.protocol"
+require("plugins/nvim-lsp-installer")
+require("configs.cmp")
 
 -- Options
 local opt = vim.opt
@@ -251,8 +245,6 @@ opt.updatetime = 250
 opt.whichwrap:append "<>[]hl"
 -- disable some builtin vim plugins
 --
-vim.cmd [[colorscheme dracula]]
--- vim.cmd [[colorscheme onedark]]
 require "colorizer".setup()
 
 local disabled_built_ins = {
@@ -301,8 +293,8 @@ map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', {expr = true})
 map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', {expr = true})
 
 -- commenting
-map("n", "<C-_>", ":CommentToggle<CR>")
-map("v", "<C-_>", ":CommentToggle<CR>")
+-- map("n", "<C-_>", "gcc")
+-- map("v", "<C-_>", "gcc")
 
 map("n", "<C-a>", ":%y+ <CR>") -- copy whole file content
 -- map("n", "<S-t>", ":enew <CR>") -- new buffer
