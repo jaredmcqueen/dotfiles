@@ -23,6 +23,7 @@ vim.api.nvim_exec(
     [[
   augroup Packer
     autocmd!
+    autocmd BufWritePost init.lua PackerClean
     autocmd BufWritePost init.lua PackerCompile
   augroup end
 ]],
@@ -37,6 +38,13 @@ require("packer").startup(
         use "wbthomason/packer.nvim"
         use "kyazdani42/nvim-web-devicons"
         use {"rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins"}
+        use {
+            "ray-x/go.nvim",
+            config = function()
+                require("go").setup()
+            end
+        }
+        use "vim-test/vim-test"
         -- https://github.com/numToStr/Comment.nvim
         use {
             "numToStr/Comment.nvim",
@@ -173,8 +181,13 @@ require("packer").startup(
             "hrsh7th/nvim-cmp", -- completion
             "neovim/nvim-lspconfig", -- attatch, completions
             "onsails/lspkind-nvim", -- better looking icons
-            "ray-x/lsp_signature.nvim",
             "williamboman/nvim-lsp-installer"
+        }
+        use {
+            "ray-x/lsp_signature.nvim",
+            config = function()
+                require("lsp_signature").setup()
+            end
         }
 
         use {
@@ -280,11 +293,14 @@ map("n", "<S-TAB>", ":BufferLineCyclePrev <CR>")
 
 -- navigate while in insertmode
 map("i", "<C-h>", "<Left>")
-map("i", "<C-l>", "<Right>")
-map("i", "<C-a>", "<End>")
+map("i", "<C-j>", "<Down>")
 map("i", "<C-k>", "<Up>")
--- map("i", "<C-j>", "<Down>")
--- map("i", "<C-a>", "<ESC>^i")
+map("i", "<C-l>", "<Right>")
+
+map("n", "<C-h>", ":wincmd h<CR>")
+map("n", "<C-j>", ":wincmd j<CR>")
+map("n", "<C-k>", ":wincmd k<CR>")
+map("n", "<C-l>", ":wincmd l<CR>")
 
 -- move cursor through wrapped lines
 map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', {expr = true})
@@ -345,5 +361,6 @@ vim.cmd [[
     autocmd!
     autocmd BufWritePre *.lua Neoformat
     autocmd BufNewFIle,BufRead *.gohtml set filetype=go
+    autocmd BufWritePre (InsertLeave?) <buffer> lua vim.lsp.buf.formatting_sync(nil,500)
   augroup END
 ]]

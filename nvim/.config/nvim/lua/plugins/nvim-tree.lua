@@ -27,6 +27,7 @@ g.nvim_tree_icons = {
 
 nvim_tree.setup {
     auto_resize = true,
+    auto_close = true,
     git = {
         enable = true,
         ignore = true
