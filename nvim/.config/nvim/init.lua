@@ -202,6 +202,12 @@ require("packer").startup(
                 }
             end
         }
+        use {
+            "tami5/lspsaga.nvim",
+            config = function()
+                require("lspsaga").init_lsp_saga()
+            end
+        }
     end
 )
 
@@ -285,22 +291,23 @@ for _, plugin in pairs(disabled_built_ins) do
     g["loaded_" .. plugin] = 1
 end
 
-map("n", ";", ":") -- remap semicolon to colon
-map("n", "<leader>so", ":source ~/.config/nvim/init.lua<CR>") -- source init.lua
-map("v", "p", '"_dP') -- in visual mode, paste to black hole
-map("n", "<TAB>", ":BufferLineCycleNext <CR>")
-map("n", "<S-TAB>", ":BufferLineCyclePrev <CR>")
+local opts = {noremap = true, silent = true}
+map("n", ";", ":", opts) -- remap semicolon to colon
+map("n", "<leader>so", ":source ~/.config/nvim/init.lua<CR>", opts) -- source init.lua
+map("v", "p", '"_dP', opts) -- in visual mode, paste to black hole
+map("n", "<TAB>", ":BufferLineCycleNext <CR>", opts)
+map("n", "<S-TAB>", ":BufferLineCyclePrev <CR>", opts)
 
 -- navigate while in insertmode
-map("i", "<C-h>", "<Left>")
-map("i", "<C-j>", "<Down>")
-map("i", "<C-k>", "<Up>")
-map("i", "<C-l>", "<Right>")
+map("i", "<C-h>", "<Left>", opts)
+map("i", "<C-j>", "<Down>", opts)
+map("i", "<C-k>", "<Up>", opts)
+map("i", "<C-l>", "<Right>", opts)
 
-map("n", "<C-h>", ":wincmd h<CR>")
-map("n", "<C-j>", ":wincmd j<CR>")
-map("n", "<C-k>", ":wincmd k<CR>")
-map("n", "<C-l>", ":wincmd l<CR>")
+map("n", "<C-h>", ":wincmd h<CR>", opts)
+map("n", "<C-j>", ":wincmd j<CR>", opts)
+map("n", "<C-k>", ":wincmd k<CR>", opts)
+map("n", "<C-l>", ":wincmd l<CR>", opts)
 
 -- move cursor through wrapped lines
 map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', {expr = true})
@@ -312,31 +319,41 @@ map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', {expr = true})
 -- map("n", "<C-_>", "gcc")
 -- map("v", "<C-_>", "gcc")
 
-map("n", "<C-a>", ":%y+ <CR>") -- copy whole file content
+map("n", "<C-a>", ":%y+ <CR>", opts) -- copy wh, optsole file content
 -- map("n", "<S-t>", ":enew <CR>") -- new buffer
-map("n", "<C-t>", ":tabnew <CR>") -- new tabs
-map("n", "<C-s>", ":w <CR>") -- ctrl + s to save file
+map("n", "<C-t>", ":tabnew <CR>", opts) -- new tabs
+map("n", "<C-s>", ":w <CR>", opts) -- ctrl + s to save file
 
 -- allows to move visual blocks of text up and down
-map("n", "<A-j>", ":m .+1<CR>==")
-map("n", "<A-k>", ":m .-2<CR>==")
-map("i", "<A-j>", "<Esc>:m .+1<CR>==gi")
-map("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
-map("v", "<A-j>", ":m '>+1<CR>gv=gv")
-map("v", "<A-k>", ":m '<-2<CR>gv=gv")
+map("n", "<A-j>", ":m .+1<CR>==", opts)
+map("n", "<A-k>", ":m .-2<CR>==", opts)
+map("i", "<A-j>", "<Esc>:m .+1<CR>==g, optsi")
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+map("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
+map("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- telescope
-map("n", "<leader>fb", ":Telescope buffers <CR>")
-map("n", "<leader>ff", ":Telescope find_files <CR>")
-map("n", "<leader>fa", ":Telescope find_files hidden=true <CR>")
-map("n", "<leader>fc", ":Telescope git_commits <CR>")
-map("n", "<leader>fs", ":Telescope git_status <CR>")
-map("n", "<leader>fh", ":Telescope help_tags <CR>")
-map("n", "<leader>fw", ":Telescope live_grep <CR>")
-map("n", "<leader>fo", ":Telescope oldfiles <CR>")
+map("n", "<leader>fb", ":Telescope buffers <CR>", opts)
+map("n", "<leader>ff", ":Telescope find_files <CR>", opts)
+map("n", "<leader>fa", ":Telescope find_files hidden=true <CR>", opts)
+map("n", "<leader>fc", ":Telescope git_commits <CR>", opts)
+map("n", "<leader>fs", ":Telescope git_status <CR>", opts)
+map("n", "<leader>fh", ":Telescope help_tags <CR>", opts)
+map("n", "<leader>fw", ":Telescope live_grep <CR>", opts)
+map("n", "<leader>fo", ":Telescope oldfiles <CR>", opts)
 
 -- tree
-map("n", "<C-n>", ":NvimTreeToggle<CR>")
+map("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
+
+-- lspsaga
+map("n", "gl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
+map("n", "ca", "<cmd>Lspsaga code_action<CR>", opts)
+map("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+map("n", "rn", "<cmd>Lspsaga rename<CR>", opts)
+map("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
+map("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts)
+map("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>", opts)
+map("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>", opts)
 
 -- TODO convert to lua mapping
 vim.cmd [[
