@@ -4,8 +4,6 @@ treesitter_config.setup(
     {
         highlight = {
             enable = true
-            -- play with this
-            -- use_languagetree = true
         },
         ensure_installed = {
             "lua"

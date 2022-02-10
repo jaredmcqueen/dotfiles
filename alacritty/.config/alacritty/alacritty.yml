@@ -7,7 +7,7 @@ env:
 font:
   normal:
     family: Hack iCursive S12
-  size: 16
+  size: 14
 draw_bold_text_with_bright_colors: true
 scrolling:
   history: 10000
