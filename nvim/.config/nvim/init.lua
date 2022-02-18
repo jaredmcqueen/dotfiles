@@ -155,7 +155,12 @@ require("packer").startup(
         }
 
         use "L3MON4D3/LuaSnip"
-        use "rafamadriz/friendly-snippets"
+        use {
+            "rafamadriz/friendly-snippets",
+            config = function()
+                require("luasnip.loaders.from_vscode").load()
+            end
+        }
 
         use {
             "kyazdani42/nvim-tree.lua",
@@ -232,7 +237,7 @@ opt.tabstop = 4
 opt.smartindent = true
 
 -- disable tilde on end of buffer: https://github.com/neovim/neovim/pull/8546#issuecomment-643643758
-opt.fillchars = {eob = " "}
+-- opt.fillchars = {eob = " "}
 
 opt.hidden = true
 opt.ignorecase = true
@@ -364,12 +369,21 @@ vmap < <gv
 vmap > >gv
 
 nmap <leader><leader> :set hlsearch! hlsearch?<cr>
+
+" press <Tab> to expand or jump in a snippet. These can also be mapped separately
+" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+" -1 for jumping backwards.
+inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+
+snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+" For changing choices in choiceNodes (not strictly necessary for a basic setup).
+imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 ]]
 
--- file explorer/tree
--- toggle = "<C-n>"
--- focus = "<leader>e"
---autocmds
 -- Run gofmt + goimport on save
 vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
 
