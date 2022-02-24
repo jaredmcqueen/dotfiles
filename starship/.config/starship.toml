@@ -1,6 +1,9 @@
 [line_break]
 disabled = false
 
+[aws]
+disabled = true
+
 [hostname]
 ssh_only = true
 

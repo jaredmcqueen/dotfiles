@@ -257,7 +257,8 @@ opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
-opt.timeoutlen = 400
+-- opt.notimeout = true
+-- opt.nottimeout = true
 opt.undofile = true
 -- opt.scrolloff = 1000
 

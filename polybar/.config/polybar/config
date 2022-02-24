@@ -17,7 +17,7 @@ grey = #8fa6a1
 monitor = ${env:MONITOR:}
 ; Size
 width  = 100%
-height = 30
+height = 24
 
 ; Offset
 ;offset-x = 50%
@@ -53,12 +53,12 @@ module-margin-left  = 0
 module-margin-right = 0
 
 ; Font
-font-0 = Hack iCursive S12:size=20;3
-font-1 = Font Awesome:style=Regular:size=12;3
+font-0 = Hack iCursive S12:size=16;3
+font-1 = Font Awesome:style=Regular:size=16;0
 
 ; Modules
 modules-left   = i3
-modules-center = weather time date
+modules-center = weather time date battery
 modules-right  = audio poweroff
 
 ; Cursor actions
