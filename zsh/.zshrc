@@ -5,11 +5,13 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.config/scripts:$PATH
 export ANSIBLE_NOCOWS=1
+export ANSIBLE_HOST_KEY_CHECKING=False
 
 alias cdp="cd ~/Projects"
 alias pipes="pipes.sh -p 10 -t 1 -r 0 -R"
 alias matrix="unimatrix -n -s 96 -l o"
 alias k="kubectl"
+alias t="terraform"
 alias v="nvim"
 alias ta="sh ~/.config/scripts/tmux.sh"
 alias vi3="nvim ~/.config/i3/config"
@@ -25,26 +27,18 @@ alias wola="wol $apollo"
 alias wolg="wol $gemini"
 alias wolall="wolm; wola; wolg"
 
+
 plugins=(
     fzf
+    # vi-mode
     command-not-found
     zsh-autosuggestions
 )
 
-# zsh-vi-mod
-export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
-
-# zsh-syntax-highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# zsh-autocomplete
-# source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-
+# bindkey '^ ' autosuggest-accept
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # plugins need to be sourced BEFORE oh-my-zsh.sh
 source $ZSH/oh-my-zsh.sh
 
-bindkey '^ ' autosuggest-accept
 
 eval "$(starship init zsh)"

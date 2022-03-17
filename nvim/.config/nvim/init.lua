@@ -356,10 +356,15 @@ map("n", "gl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 map("n", "ca", "<cmd>Lspsaga code_action<CR>", opts)
 map("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
 map("n", "rn", "<cmd>Lspsaga rename<CR>", opts)
-map("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
-map("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts)
-map("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>", opts)
-map("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>", opts)
+map("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+map("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+map("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
+map("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
+
+-- saving file with C-s
+map("n", "<C-s>", ":update<CR>", opts)
+map("i", "<C-s>", "<C-C>:update<CR>gi", opts)
+map("v", "<C-s>", "<C-O><cmd>:update<CR>gi", opts)
 
 -- TODO convert to lua mapping
 vim.cmd [[
@@ -369,7 +374,7 @@ nmap ga <Plug>(EasyAlign)
 vmap < <gv
 vmap > >gv
 
-nmap <leader><leader> :set hlsearch! hlsearch?<cr>
+nmap <leader><leader> :set hlsearch! hlsearch?<CR>
 
 " press <Tab> to expand or jump in a snippet. These can also be mapped separately
 " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.

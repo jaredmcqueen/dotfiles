@@ -1,6 +1,6 @@
 live_config_reload: true
 import:
-  #  - /home/jared/.config/alacritty/dracula.yml
+  # - /home/jared/.config/alacritty/dracula.yml
   - /home/jared/.config/alacritty/tokyonight.yml
 env:
   TERM: xterm-256color

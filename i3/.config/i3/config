@@ -65,15 +65,15 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-bindsym $mod+u split v
+# bindsym $mod+u split v
 
 # split in vertical orientation
-bindsym $mod+v split h
+# bindsym $mod+v split h
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-bindsym $mod+e layout toggle split
+bindsym $mod+e layout toggle tabbed split
 
 bindsym $mod+Shift+space floating toggle
 
@@ -122,5 +122,3 @@ client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
 client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
 client.background       #F8F8F2
-
-

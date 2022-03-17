@@ -1,5 +1,6 @@
 local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local servers = {
+    "lemminx",
     "bashls",
     "dockerls",
     "gopls",

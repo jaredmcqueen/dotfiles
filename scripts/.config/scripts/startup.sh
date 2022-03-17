@@ -56,6 +56,8 @@ for m in $(polybar --list-monitors | cut -d":" -f1); do
     MONITOR=$m polybar --reload top &
 done
 
+killall -q xfce
+xfce4-power-manager --daemon
 
 i3-msg 'exec slack;' &
 i3-msg 'exec signal-desktop;' &
