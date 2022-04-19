@@ -26,6 +26,7 @@ bindsym $mod+bracketleft exec sh $HOME/.config/scripts/redshift.sh down
 bindsym $mod+minus exec sh $HOME/.config/scripts/volume.sh down
 bindsym $mod+plus exec sh $HOME/.config/scripts/volume.sh up
 bindsym $mod+m exec sh $HOME/.config/scripts/volume.sh mute
+bindsym $mod+x exec sh $HOME/.config/scripts/lock_bar.sh
 
 
 # my workspaces
@@ -73,7 +74,7 @@ bindsym $mod+Shift+l move right
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-bindsym $mod+e layout toggle tabbed split
+bindsym $mod+t layout toggle
 
 bindsym $mod+Shift+space floating toggle
 
@@ -116,9 +117,9 @@ bindsym $mod+r mode "resize"
 
 # class                 border  bground text    indicator child_border
 client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+client.focused_inactive #6272a4 #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #6272a4 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #6272a4 #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #6272a4 #282A36 #F8F8F2 #282A36   #282A36
 
 client.background       #F8F8F2

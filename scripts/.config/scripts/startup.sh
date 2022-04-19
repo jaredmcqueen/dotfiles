@@ -28,9 +28,9 @@ feh --bg-fill --randomize ~/Photos/wallpapers/*
 redshift -P -O 3000 &
 
 # alternating_layouts.py
-killall -q python3
-while pgrep -u $UID -x python3 >/dev/null; do sleep 1; done
-alternating_layouts.py &
+# killall -q python3
+# while pgrep -u $UID -x python3 >/dev/null; do sleep 1; done
+# alternating_layouts.py &
 
 # picom
 killall -q picom
@@ -43,8 +43,8 @@ while pgrep -u $UID -x dunst >/dev/null; do sleep 1; done
 dunst &
 
 #polybar
-killall -q polybar
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+# killall -q polybar
+# while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Manage multiple monitors
 for m in $(polybar --list-monitors | cut -d":" -f1); do
@@ -59,6 +59,7 @@ done
 killall -q xfce
 xfce4-power-manager --daemon
 
+i3 layout tabbed
 i3-msg 'exec slack;' &
 i3-msg 'exec signal-desktop;' &
 i3-msg 'workspace 1' &

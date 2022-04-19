@@ -1,8 +1,3 @@
--- notes about my config:
--- gitsigns.lua maps jumping to hunks
--- completion.lua maps a bunch of stuff
--- completion defines a python lsp server, i should move it
-
 -- mapping function
 local function map(mode, lhs, rhs, opts)
     local options = {noremap = true}
@@ -41,7 +36,7 @@ require("packer").startup(
         use {
             "ray-x/go.nvim",
             config = function()
-                require("go").setup()
+                require("go").setup({run_in_floaterm = false})
             end
         }
         use "vim-test/vim-test"
@@ -59,6 +54,7 @@ require("packer").startup(
         -- https://github.com/akinsho/bufferline.nvim
         use {
             "akinsho/bufferline.nvim",
+            tag = "*",
             requires = "kyazdani42/nvim-web-devicons",
             config = function()
                 require("plugins.bufferline")

@@ -19,6 +19,9 @@ alias vnv="nvim ~/.config/nvim/init.lua"
 alias ds="source ~/.config/scripts/deepsky.sh"
 alias vzs="nvim ~/.zshrc"
 
+alias wgu="wg-quick up ~/wg.conf"
+alias wgd="wg-quick down ~/wg.conf"
+
 mercury="20:18:11:1a:04:94"
 apollo="20:18:11:1a:05:f2"
 gemini="20:19:12:1a:01:8c"

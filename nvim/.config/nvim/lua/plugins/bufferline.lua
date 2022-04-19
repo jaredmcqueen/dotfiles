@@ -3,7 +3,15 @@ local bufferline = require("bufferline")
 bufferline.setup(
     {
         options = {
-            offsets = {{filetype = "NvimTree", text = "", padding = 1}},
+            -- offsets = {{filetype = "NvimTree", text = "", padding = 1}},
+            offsets = {
+                {
+                    filetype = "NvimTree",
+                    text = "",
+                    highlight = "Directory",
+                    text_align = "left"
+                }
+            },
             modified_icon = "",
             show_close_icon = false,
             left_trunc_marker = "",

@@ -9,7 +9,8 @@ local servers = {
     "pyright",
     "sqls",
     "sumneko_lua",
-    "tailwindcss",
+    "intelephense",
+    -- "tailwindcss",
     "terraformls",
     "tsserver",
     "yamlls"

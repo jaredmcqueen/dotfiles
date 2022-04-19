@@ -27,10 +27,7 @@ cmp.setup(
                 }
             )
         },
-        documentation = {
-            border = "rounded",
-            winhighlight = "FloatBorder:FloatBorder,Normal:Normal"
-        },
+        window = {},
         experimental = {
             ghost_text = true
         },
