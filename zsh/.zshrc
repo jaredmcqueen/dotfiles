@@ -1,4 +1,4 @@
-export ZSH="/usr/share/oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export npm_config_prefix="$HOME/.local"
 export EDITOR=nvim
 export PATH="${PATH}:${HOME}/.krew/bin"
@@ -42,6 +42,4 @@ plugins=(
 # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # plugins need to be sourced BEFORE oh-my-zsh.sh
 source $ZSH/oh-my-zsh.sh
-
-
 eval "$(starship init zsh)"
