@@ -1,6 +1,6 @@
 -- mapping function
 local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true}
+    local options = { noremap = true }
     if opts then
         options = vim.tbl_extend("force", options, opts)
     end
@@ -21,7 +21,7 @@ vim.api.nvim_exec(
     autocmd BufWritePost init.lua PackerClean
     autocmd BufWritePost init.lua PackerCompile
   augroup end
-]],
+]]   ,
     false
 )
 -- end packer install
@@ -32,14 +32,68 @@ require("packer").startup(
         use "nvim-lua/plenary.nvim"
         use "wbthomason/packer.nvim"
         use "kyazdani42/nvim-web-devicons"
-        use {"rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins"}
+        use {
+            "cuducos/yaml.nvim",
+            ft = { "yaml" }, -- optional
+            requires = {
+                "nvim-treesitter/nvim-treesitter",
+                "nvim-telescope/telescope.nvim" -- optional
+            },
+        }
+        use {
+            "nvim-treesitter/nvim-treesitter-context",
+            requires = {
+                "nvim-treesitter/nvim-treesitter" -- optional
+            },
+            config = function()
+                require("treesitter-context").setup {
+                    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+                    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+                    patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+                        -- For all filetypes
+                        -- Note that setting an entry here replaces all other patterns for this entry.
+                        -- By setting the 'default' entry below, you can control which nodes you want to
+                        -- appear in the context window.
+                        default = {
+                            'func',
+                            'class',
+                            'function',
+                            'method',
+                            'for', -- These won't appear in the context
+                            'while',
+                            'if',
+                            'switch',
+                            'case',
+                        },
+                    },
+                }
+
+            end
+        }
+        use {
+            "nvim-neotest/neotest",
+            requires = {
+                "nvim-lua/plenary.nvim",
+                "nvim-treesitter/nvim-treesitter",
+                "antoinemadec/FixCursorHold.nvim",
+                "nvim-neotest/neotest-go",
+            },
+            config = function()
+                require('neotest').setup({
+                    adapters = {
+                        require('neotest-go'),
+                    }
+                })
+            end
+        }
+
         use {
             "ray-x/go.nvim",
             config = function()
-                require("go").setup({run_in_floaterm = false})
+                require("go").setup({ run_in_floaterm = false })
             end
         }
-        use "vim-test/vim-test"
+        -- use "vim-test/vim-test"
         -- https://github.com/numToStr/Comment.nvim
         use {
             "numToStr/Comment.nvim",
@@ -100,7 +154,7 @@ require("packer").startup(
         -- https://github.com/nvim-telescope/telescope.nvim
         use {
             "nvim-telescope/telescope.nvim",
-            requires = {"nvim-lua/plenary.nvim"},
+            requires = { "nvim-lua/plenary.nvim" },
             config = function()
                 require("telescope").setup()
             end
@@ -108,7 +162,7 @@ require("packer").startup(
 
         -- git plugin
         -- https://github.com/tpope/vim-fugitive
-        use "tpope/vim-fugitive"
+        -- use "tpope/vim-fugitive"
         -- use "tpope/vim-rhubarb" -- Fugitive-companion to interact with github
 
         -- https://github.com/junegunn/vim-easy-align/blob/master/EXAMPLES.md
@@ -126,7 +180,7 @@ require("packer").startup(
         -- https://github.com/hoob3rt/lualine.nvim
         use {
             "hoob3rt/lualine.nvim",
-            requires = {"kyazdani42/nvim-web-devicons", opt = true},
+            requires = { "kyazdani42/nvim-web-devicons", opt = true },
             config = function()
                 require("lualine").setup {
                     options = {
@@ -141,9 +195,9 @@ require("packer").startup(
             config = function()
                 vim.g.tokyonight_style = "night"
                 vim.g.tokyonight_italic_functions = true
-                vim.g.tokyonight_sidebars = {"packer"}
+                vim.g.tokyonight_sidebars = { "packer" }
                 -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-                vim.g.tokyonight_colors = {hint = "orange", error = "#ff0000"}
+                vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 
                 -- Load the colorscheme
                 vim.cmd [[colorscheme tokyonight]]
@@ -256,7 +310,7 @@ opt.termguicolors = true
 -- opt.notimeout = true
 -- opt.nottimeout = true
 opt.undofile = true
--- opt.scrolloff = 1000
+opt.scrolloff = 1000 -- center the screen at all times
 
 -- interval for writing swap file to disk, also used by gitsigns
 opt.updatetime = 250
@@ -293,7 +347,7 @@ for _, plugin in pairs(disabled_built_ins) do
     g["loaded_" .. plugin] = 1
 end
 
-local opts = {noremap = true, silent = true}
+local opts = { noremap = true, silent = true }
 map("n", ";", ":", opts) -- remap semicolon to colon
 map("n", "<leader>so", ":source ~/.config/nvim/init.lua<CR>", opts) -- source init.lua
 map("v", "p", '"_dP', opts) -- in visual mode, paste to black hole
@@ -312,14 +366,18 @@ map("n", "<C-k>", ":wincmd k<CR>", opts)
 map("n", "<C-l>", ":wincmd l<CR>", opts)
 
 -- move cursor through wrapped lines
-map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', {expr = true})
-map("", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', {expr = true})
-map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', {expr = true})
-map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', {expr = true})
+map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+map("", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 
 -- commenting
--- map("n", "<C-_>", "gcc")
--- map("v", "<C-_>", "gcc")
+map("n", "<C-_>", "gcc")
+map("v", "<C-_>", "gcc")
+
+-- centering screen
+-- map("n", "<C-u>", "<C-u>zz")
+-- map("v", "<C-d>", "<C-d>zz")
 
 map("n", "<C-a>", ":%y+ <CR>", opts) -- copy wh, optsole file content
 -- map("n", "<S-t>", ":enew <CR>") -- new buffer
@@ -327,12 +385,12 @@ map("n", "<C-t>", ":tabnew <CR>", opts) -- new tabs
 map("n", "<C-s>", ":w <CR>", opts) -- ctrl + s to save file
 
 -- allows to move visual blocks of text up and down
-map("n", "<A-j>", ":m .+1<CR>==", opts)
-map("n", "<A-k>", ":m .-2<CR>==", opts)
-map("i", "<A-j>", "<Esc>:m .+1<CR>==g, optsi")
-map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
-map("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
-map("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+map("n", "<M-j>", ":m .+1<CR>==", opts)
+map("n", "<M-k>", ":m .-2<CR>==", opts)
+map("i", "<M-j>", "<Esc>:m .+1<CR>==g, optsi")
+map("i", "<M-k>", "<Esc>:m .-2<CR>==gi", opts)
+map("v", "<M-j>", ":m '>+1<CR>gv=gv", opts)
+map("v", "<M-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- telescope
 map("n", "<leader>fb", ":Telescope buffers <CR>", opts)

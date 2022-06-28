@@ -23,7 +23,7 @@ bufferline.setup(
             enforce_regular_tabs = false,
             view = "multiwindow",
             show_buffer_close_icons = false,
-            separator_style = "slant",
+            --separator_style = "slant",
             always_show_bufferline = true,
             diagnostics = false
         }
