@@ -1,8 +1,8 @@
 local opts = {
     settings = {
-        json = {
-            schemas = require("schemastore").json.schemas()
-        }
+        -- json = {
+        --     schemas = require("schemastore").json.schemas()
+        -- }
     },
     setup = {
         commands = {

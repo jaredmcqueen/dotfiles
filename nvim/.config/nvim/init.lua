@@ -32,6 +32,20 @@ require("packer").startup(
         use "nvim-lua/plenary.nvim"
         use "wbthomason/packer.nvim"
         use "kyazdani42/nvim-web-devicons"
+
+        use 'ggandor/lightspeed.nvim'
+
+        -- https://github.com/simrat39/symbols-outline.nvim
+        use { 'simrat39/symbols-outline.nvim',
+            config = function()
+                require("symbols-outline").setup({
+                    auto_preview = false,
+                    width = 30
+                })
+            end
+        }
+
+
         use {
             "cuducos/yaml.nvim",
             ft = { "yaml" }, -- optional
@@ -46,7 +60,7 @@ require("packer").startup(
                 "nvim-treesitter/nvim-treesitter" -- optional
             },
             config = function()
-                require("treesitter-context").setup {
+                require("treesitter-context").setup({
                     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
                     max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
                     patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
@@ -66,8 +80,7 @@ require("packer").startup(
                             'case',
                         },
                     },
-                }
-
+                })
             end
         }
         use {
@@ -177,32 +190,33 @@ require("packer").startup(
         -- tpope/vim-surround
         use "tpope/vim-surround"
 
+
         -- https://github.com/hoob3rt/lualine.nvim
         use {
             "hoob3rt/lualine.nvim",
             requires = { "kyazdani42/nvim-web-devicons", opt = true },
             config = function()
-                require("lualine").setup {
+                require("lualine").setup({
                     options = {
-                        them = "tokyonight"
+                        theme = "catppuccin"
                     }
-                }
+                })
             end
         }
 
-        use {
-            "folke/tokyonight.nvim",
-            config = function()
-                vim.g.tokyonight_style = "night"
-                vim.g.tokyonight_italic_functions = true
-                vim.g.tokyonight_sidebars = { "packer" }
-                -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-                vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
-
-                -- Load the colorscheme
-                vim.cmd [[colorscheme tokyonight]]
-            end
-        }
+        -- use {
+        --     "folke/tokyonight.nvim",
+        --     config = function()
+        --         vim.g.tokyonight_style = "night"
+        --         vim.g.tokyonight_italic_functions = true
+        --         vim.g.tokyonight_sidebars = { "packer" }
+        --         -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+        --         vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
+        --
+        --         -- Load the colorscheme
+        --         vim.cmd [[colorscheme tokyonight]]
+        --     end
+        -- }
 
         use "L3MON4D3/LuaSnip"
         use {
@@ -234,9 +248,11 @@ require("packer").startup(
             "hrsh7th/cmp-path", -- path completion
             "saadparwaiz1/cmp_luasnip", -- i'm not sure I need this
             "hrsh7th/nvim-cmp", -- completion
-            "neovim/nvim-lspconfig", -- attatch, completions
             "onsails/lspkind-nvim", -- better looking icons
-            "williamboman/nvim-lsp-installer"
+        }
+        use {
+            "williamboman/nvim-lsp-installer",
+            "neovim/nvim-lspconfig",
         }
         use {
             "ray-x/lsp_signature.nvim",
@@ -245,22 +261,41 @@ require("packer").startup(
             end
         }
 
-        use {
-            "b0o/schemastore.nvim",
-            config = function()
-                require("lspconfig").jsonls.setup {
-                    settings = {
-                        json = {
-                            schemas = require("schemastore").json.schemas()
-                        }
-                    }
-                }
-            end
-        }
+        -- use {
+        --     "b0o/schemastore.nvim",
+        --     config = function()
+        --         require("lspconfig").jsonls.setup {
+        --             settings = {
+        --                 json = {
+        --                     schemas = require("schemastore").json.schemas()
+        --                 }
+        --             }
+        --         }
+        --     end
+        -- }
+        --
         use {
             "tami5/lspsaga.nvim",
             config = function()
                 require("lspsaga").init_lsp_saga()
+            end
+        }
+
+        -- https://github.com/catppuccin/nvim
+        use {
+            "catppuccin/nvim",
+            as = "catppuccin",
+            run = ":CatppuccinCompile",
+            config = function()
+                require("catppuccin").setup({
+                    transparent_background = true,
+                    compile = {
+                        enabled = true,
+                        path = vim.fn.stdpath "cache" .. "/catppuccin",
+                    },
+                    lightspeed = true
+
+                })
             end
         }
     end
@@ -272,6 +307,10 @@ require("configs.cmp")
 -- Options
 local opt = vim.opt
 local g = vim.g
+
+g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+vim.cmd [[colorscheme catppuccin]]
+
 g.mapleader = " "
 
 opt.completeopt = "menu,menuone,noselect"
@@ -307,8 +346,6 @@ opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
--- opt.notimeout = true
--- opt.nottimeout = true
 opt.undofile = true
 opt.scrolloff = 1000 -- center the screen at all times
 
@@ -382,7 +419,6 @@ map("v", "<C-_>", "gcc")
 map("n", "<C-a>", ":%y+ <CR>", opts) -- copy wh, optsole file content
 -- map("n", "<S-t>", ":enew <CR>") -- new buffer
 map("n", "<C-t>", ":tabnew <CR>", opts) -- new tabs
-map("n", "<C-s>", ":w <CR>", opts) -- ctrl + s to save file
 
 -- allows to move visual blocks of text up and down
 map("n", "<M-j>", ":m .+1<CR>==", opts)
@@ -416,9 +452,12 @@ map("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)
 map("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
 
 -- saving file with C-s
-map("n", "<C-s>", ":update<CR>", opts)
-map("i", "<C-s>", "<C-C>:update<CR>gi", opts)
-map("v", "<C-s>", "<C-O><cmd>:update<CR>gi", opts)
+-- map("n", "<C-s>", ":update<CR>", opts)
+-- map("i", "<C-s>", "<C-C>:update<CR>gi", opts)
+-- map("v", "<C-s>", "<C-O><cmd>:update<CR>gi", opts)
+
+-- toggle symbols
+map("n", "<C-s>", ":SymbolsOutline<CR>", opts)
 
 -- TODO convert to lua mapping
 vim.cmd [[

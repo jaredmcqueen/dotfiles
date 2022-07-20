@@ -14,6 +14,7 @@ alias cdp="cd ~/Projects"
 alias pipes="pipes.sh -p 10 -t 1 -r 0 -R"
 alias matrix="unimatrix -n -s 96 -l o"
 alias k="kubectl"
+alias h="helm"
 alias t="terraform"
 alias v="nvim"
 alias ta="sh ~/.config/scripts/tmux.sh"
@@ -22,16 +23,20 @@ alias vnv="nvim ~/.config/nvim/init.lua"
 alias ds="source ~/.config/scripts/deepsky.sh"
 alias vzs="nvim ~/.zshrc"
 alias gp="git pull"
+alias stopvpn="launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist; \
+               launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangps.plist"
 
+alias startvpn="launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist; \
+                launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangps.plist"
 alias wgu="wg-quick up ~/wg.conf"
 alias wgd="wg-quick down ~/wg.conf"
 
 mercury="20:18:11:1a:04:94"
 apollo="20:18:11:1a:05:f2"
 gemini="20:19:12:1a:01:8c"
-alias wolm="wol $mercury"
-alias wola="wol $apollo"
-alias wolg="wol $gemini"
+alias wolm="wakeonlan $mercury"
+alias wola="wakeonlan $apollo"
+alias wolg="wakeonlan $gemini"
 alias wolall="wolm; wola; wolg"
 
 # zsh-completions
