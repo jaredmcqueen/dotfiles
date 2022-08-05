@@ -1,4 +1,0 @@
-#!/bin/sh
-xmodmap -e "clear Lock"
-xmodmap -e "keycode 66 = Super_L"
-xset r rate 250 30

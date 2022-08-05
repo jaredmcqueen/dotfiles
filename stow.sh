@@ -1,5 +1,5 @@
 #!/bin/sh
-pushd $HOME/.dotfiles/
+pushd $HOME/dotfiles/
 for f in *; do
   if [ -d "$f" ]; then
     echo "stowing $f"

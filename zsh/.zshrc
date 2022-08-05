@@ -23,10 +23,10 @@ alias vnv="nvim ~/.config/nvim/init.lua"
 alias ds="source ~/.config/scripts/deepsky.sh"
 alias vzs="nvim ~/.zshrc"
 alias gp="git pull"
-alias stopvpn="launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist; \
+alias vpnstop="launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist; \
                launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangps.plist"
 
-alias startvpn="launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist; \
+alias vpnstart="launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist; \
                 launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangps.plist"
 alias wgu="wg-quick up ~/wg.conf"
 alias wgd="wg-quick down ~/wg.conf"
