@@ -10,18 +10,11 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-alias cdp="cd ~/Projects"
-alias pipes="pipes.sh -p 10 -t 1 -r 0 -R"
-alias matrix="unimatrix -n -s 96 -l o"
 alias k="kubectl"
 alias h="helm"
 alias t="terraform"
 alias v="nvim"
 alias ta="sh ~/.config/scripts/tmux.sh"
-alias vi3="nvim ~/.config/i3/config"
-alias vnv="nvim ~/.config/nvim/init.lua"
-alias ds="source ~/.config/scripts/deepsky.sh"
-alias vzs="nvim ~/.zshrc"
 alias gp="git pull"
 alias vpnstop="launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist; \
                launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangps.plist"
