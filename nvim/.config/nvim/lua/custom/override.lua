@@ -14,6 +14,15 @@ M.nvimtree = {
 	},
 }
 
+-- M.cmp = {
+-- 	mapping = {
+-- 		["<C-y>"] = cmp.mapping.confirm({
+-- 			behavior = cmp.ConfirmBehavior.Replace,
+-- 			select = false,
+-- 		}),
+-- 	},
+-- }
+
 M.treesitter = {
 	ensure_installed = {
 		"bash",
@@ -28,6 +37,7 @@ M.treesitter = {
 		"markdown",
 		"php",
 		"vim",
+		"yaml",
 	},
 }
 
