@@ -14,14 +14,18 @@ M.nvimtree = {
 	},
 }
 
--- M.cmp = {
--- 	mapping = {
--- 		["<C-y>"] = cmp.mapping.confirm({
--- 			behavior = cmp.ConfirmBehavior.Replace,
--- 			select = false,
--- 		}),
--- 	},
--- }
+M.cmp = function()
+	local cmp = require("cmp")
+
+	return {
+		mapping = {
+			["<C-y>"] = cmp.mapping.confirm({
+				behavior = cmp.ConfirmBehavior.Replace,
+				select = false,
+			}),
+		},
+	}
+end
 
 M.treesitter = {
 	ensure_installed = {

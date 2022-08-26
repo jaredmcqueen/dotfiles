@@ -1,13 +1,13 @@
 local M = {}
-local override = require("custom.override")
+local pluginConfs = require("custom.plugins.configs")
 
 M.plugins = {
 	override = {
-		["kyazdani42/nvim-tree.lua"] = override.nvimtree,
-		["nvim-treesitter/nvim-treesitter"] = override.treesitter,
-		["lukas-reineke/indent-blankline.nvim"] = override.blankline,
-		["williamboman/mason.nvim"] = override.mason,
-		-- ["hrsh7th/nvim-cmp"] = override.cmp,
+		["kyazdani42/nvim-tree.lua"] = pluginConfs.nvimtree,
+		["nvim-treesitter/nvim-treesitter"] = pluginConfs.treesitter,
+		["lukas-reineke/indent-blankline.nvim"] = pluginConfs.blankline,
+		["williamboman/mason.nvim"] = pluginConfs.mason,
+		["hrsh7th/nvim-cmp"] = pluginConfs.cmp,
 	},
 	user = require("custom.plugins"),
 }

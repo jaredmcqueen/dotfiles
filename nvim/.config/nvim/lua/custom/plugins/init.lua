@@ -16,6 +16,7 @@ return {
 			require("nvim-surround").setup()
 		end,
 	},
+	-- helm charts
 	["towolf/vim-helm"] = {},
 	["junegunn/vim-easy-align"] = {},
 	["junegunn/vim-peekaboo"] = {},
