@@ -7,6 +7,7 @@ export PATH=$PATH:$HOME/.config/scripts
 export PATH=$PATH:$HOME/go/bin
 export ANSIBLE_NOCOWS=1
 export ANSIBLE_HOST_KEY_CHECKING=False
+export XDG_CONFIG_HOME="$HOME/.config"
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 

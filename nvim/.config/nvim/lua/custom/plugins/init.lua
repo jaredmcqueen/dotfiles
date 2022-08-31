@@ -16,8 +16,6 @@ return {
 			require("nvim-surround").setup()
 		end,
 	},
-	-- helm charts
-	["towolf/vim-helm"] = {},
 	["junegunn/vim-easy-align"] = {},
 	["junegunn/vim-peekaboo"] = {},
 	["ray-x/lsp_signature.nvim"] = {
@@ -27,7 +25,7 @@ return {
 	},
 	["simrat39/symbols-outline.nvim"] = {
 		config = function()
-			require("symbols-outline").setup({})
+			require("symbols-outline").setup()
 		end,
 	},
 	["nvim-treesitter/nvim-treesitter-context"] = {
@@ -46,6 +44,29 @@ return {
 					},
 				},
 			})
+		end,
+	},
+	["chentoast/marks.nvim"] = {
+		config = function()
+			require("marks").setup()
+		end,
+	},
+	["leoluz/nvim-dap-go"] = {
+		requires = {
+			"mfussenegger/nvim-dap",
+			"theHamsta/nvim-dap-virtual-text",
+			"nvim-telescope/telescope-dap.nvim",
+		},
+		config = function()
+			require("dap-go").setup()
+		end,
+	},
+	["rcarriga/nvim-dap-ui"] = {
+		requires = {
+			"mfussenegger/nvim-dap",
+		},
+		config = function()
+			require("dapui").setup()
 		end,
 	},
 }

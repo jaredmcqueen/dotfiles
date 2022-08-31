@@ -14,9 +14,10 @@ M.plugins = {
 
 M.ui = {
 	theme = "catppuccin",
-	-- hl_override = {
-	-- 	CursorLine = { bg = "#45475a" },
-	-- },
+	hl_override = {
+		Comment = { italic = true },
+		CursorLine = { bg = "one_bg" },
+	},
 }
 
 M.mappings = require("custom.mappings")
