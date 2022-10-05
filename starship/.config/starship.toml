@@ -27,3 +27,6 @@ style = "yellow"
 [[battery.display]]
 threshold = 50
 style = "red"
+
+[golang]
+symbol = " "

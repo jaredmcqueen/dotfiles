@@ -1,5 +1,18 @@
 local M = {}
 
+M.symbolsOutline = {
+	n = {
+		["<C-j>"] = { ":SymbolsOutline<CR>", "Symbols Outline" },
+	},
+}
+
+M.scrollBuffer = {
+	n = {
+		["<C-y>"] = { "3<C-y>", "scroll up" },
+		["<C-e>"] = { "3<C-e>", "scroll down" },
+	},
+}
+
 M.altMoveText = {
 	n = {
 		["<M-j>"] = { ":m .+1<CR>==", "move text down" },

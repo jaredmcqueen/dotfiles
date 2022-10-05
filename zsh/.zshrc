@@ -13,7 +13,7 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 alias k="kubectl"
 alias h="helm"
-alias t="terraform"
+alias t="tmux"
 alias v="nvim"
 alias ta="sh ~/.config/scripts/tmux.sh"
 alias gp="git pull"

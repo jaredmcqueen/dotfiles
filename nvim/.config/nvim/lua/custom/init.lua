@@ -2,7 +2,7 @@ local opt = vim.opt
 opt.cursorline = true
 opt.clipboard = { "unnamed", "unnamedplus" }
 opt.relativenumber = true
-opt.scrolloff = 1000
+-- opt.scrolloff = 1000
 
 local dap, dapui = require("dap"), require("dapui")
 dap.listeners.after.event_initialized["dapui_config"] = function()
