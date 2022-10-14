@@ -2,7 +2,7 @@ local M = {}
 
 M.symbolsOutline = {
 	n = {
-		["<C-j>"] = { ":SymbolsOutline<CR>", "Symbols Outline" },
+		["<C-b>"] = { ":SymbolsOutline<CR>", "Symbols Outline" },
 	},
 }
 
