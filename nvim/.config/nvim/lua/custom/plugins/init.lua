@@ -69,13 +69,9 @@ return {
 			require("dapui").setup()
 		end,
 	},
-	-- ["nvim-lua/plenary.nvim"] = {},
-	-- ["sindrets/diffview.nvim"] = {
-	-- 	requires = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 	},
-	-- 	after = function()
-	-- 		require("diffview").setup()
-	-- 	end,
-	-- },
+	["shortcuts/no-neck-pain.nvim"] = {
+		config = function()
+			require("no-neck-pain").setup()
+		end,
+	},
 }

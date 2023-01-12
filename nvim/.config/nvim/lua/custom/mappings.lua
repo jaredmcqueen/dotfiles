@@ -1,5 +1,17 @@
 local M = {}
 
+M.pasteText = {
+	v = {
+		["<p>"] = { "_dP", "paste without replacing clipboard" },
+	},
+}
+
+M.wrapToggle = {
+	n = {
+		["<leader>ww"] = { ":set wrap!<CR>", "toggle text wrap" },
+	},
+}
+
 M.symbolsOutline = {
 	n = {
 		["<C-b>"] = { ":SymbolsOutline<CR>", "Symbols Outline" },
@@ -66,7 +78,7 @@ M.dap = {
 			"dap log point",
 		},
 		["<leader>dr"] = { ":lua require('dap').repl.open()<CR>", "dapui repl" },
-		["<leader>du"] = { ":lua require('dapui').toggle()<CR>", "dapui toggle" },
+		["<leader>dt"] = { ":lua require('dapui').toggle()<CR>", "dapui toggle" },
 	},
 }
 
