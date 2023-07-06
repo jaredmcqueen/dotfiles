@@ -1,5 +1,4 @@
 # Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 export ZSH="$HOME/.oh-my-zsh"
 export npm_config_prefix="$HOME/.local"
 export EDITOR=nvim
@@ -11,35 +10,35 @@ export ANSIBLE_NOCOWS=1
 export ANSIBLE_HOST_KEY_CHECKING=False
 export XDG_CONFIG_HOME="$HOME/.config"
 
+
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 alias k="kubectl"
+alias lg="lazygit"
 alias h="helm"
 alias t="tmux"
 alias v="nvim"
-alias ta="sh ~/.config/scripts/tmux.sh"
+alias ta="tmux new-session -s tmux || tmux a"
 alias gp="git pull"
-alias gP="git push"
 alias vpnstop="launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist; \
                launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangps.plist"
 
 alias vpnstart="launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangpa.plist; \
                 launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangps.plist"
-alias wgu="wg-quick up ~/wg.conf"
-alias wgd="wg-quick down ~/wg.conf"
+# alias wgu="wg-quick up ~/wg.conf"
+# alias wgd="wg-quick down ~/wg.conf"
 
-mercury="20:18:11:1a:04:94"
-apollo="20:18:11:1a:05:f2"
-gemini="20:19:12:1a:01:8c"
-alias wolm="wakeonlan $mercury"
-alias wola="wakeonlan $apollo"
-alias wolg="wakeonlan $gemini"
-alias wolall="wolm; wola; wolg"
+# mercury="20:18:11:1a:04:94"
+# apollo="20:18:11:1a:05:f2"
+# gemini="20:19:12:1a:01:8c"
+# alias wolm="wakeonlan $mercury"
+# alias wola="wakeonlan $apollo"
+# alias wolg="wakeonlan $gemini"
+# alias wolall="wolm; wola; wolg"
 
 # zsh-completions
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
     autoload -Uz compinit
     compinit
 fi
@@ -55,7 +54,3 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 eval "$(logcli --completion-script-zsh)"
 eval "$(starship init zsh)"
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

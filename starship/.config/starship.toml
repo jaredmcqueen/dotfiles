@@ -16,17 +16,9 @@ only_detached = false
 [kubernetes]
 disabled = true
 
-[[battery.display]]
-threshold = 100
-style = "green"
-
-[[battery.display]]
-threshold = 50
-style = "yellow"
-
-[[battery.display]]
-threshold = 50
-style = "red"
-
 [golang]
 symbol = " "
+
+[cmd_duration]
+show_milliseconds = true
+min_time = 0

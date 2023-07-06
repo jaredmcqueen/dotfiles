@@ -1,3 +1,2 @@
 cmd + ctrl + alt - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
-cmd + ctrl + alt - w : /Applications/Firefox.app/Contents/MacOS/firefox --new-window
-cmd + ctrl + alt - p : /Applications/Firefox.app/Contents/MacOS/firefox --private-window
+cmd + ctrl + alt - w : /Applications/Arc.app/Contents/MacOS/Arc --new-window

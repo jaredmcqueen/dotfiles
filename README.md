@@ -1,6 +1,1 @@
-insteady of:
-i3wm
-polybar
-
-use
-popos manager
+# my dotfiles
